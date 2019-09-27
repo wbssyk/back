@@ -1,0 +1,119 @@
+.bodyStyleBs{
+    height: 100%;
+    background-color: #F0F2F5;
+    width: 100%;
+    overflow: hidden;
+}
+.searchStyle{
+    border: 4px solid #0079FE;
+    margin-right: 10px;
+    float: left;
+    margin-top: 0.8%;
+    height: 25px;
+}
+.searchText{
+    float: left;
+    line-height: 53px;
+    font-size: 16px;
+}
+.btnBox{
+    float: right;
+    margin-left: 70%;
+    padding: 1% 4% 0 0;
+}
+.btnBox span {
+    border: 1px solid #ccc;
+    width: 56px;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 35px;
+}
+.icon div input{padding-left:5px;}
+/***********************  content 涓诲唴瀹� *******************************/
+
+.bodyStyleBs .searchBox {
+    width: 100%;
+    float: left;
+    height: 100%;
+}
+.bodyStyleBs .searchBox .searchTitle {
+    height: 50px;
+    background-color: #fff;
+    line-height: 30px;
+    padding-left: 1%;
+    margin-bottom: 1.5%;
+}
+.bodyStyleBs .searchBox .searchTitle .searchStyle {
+    color: blue;
+    border: 3px solid blue;
+    margin-right: 10px;
+    float: left;
+    margin-top: 1%;
+    height: 20px;
+}
+.bodyStyleBs .searchBox .searchTitle .searchText {
+    float: left;
+    line-height: 50px;
+    font-size: 14px;
+}
+
+.bodyStyleBs .searchBox .searchTitle table{
+    width: 100%;
+}
+.bodyStyleBs .searchBox .searchTitle table, th, td{
+    /*border: 1px solid #ccc;*/
+    text-align: center;
+}
+.bodyStyleBs .searchBox .searchTitle table label{
+    margin-right: 2px;
+}
+.bodyStyleBs .searchBox .contentBox{
+    margin:0 1.5% 1.5%;
+}
+.bodyStyleBs .searchBox .icon,.content {
+    overflow:hidden;
+    background-color: #fff;
+    margin-bottom: 1.5%;
+    padding: 1.5% 2% 0 2%;
+}
+.bodyStyleBs .searchBox .icon .searchBtnBox{
+    width: 38%;
+}
+.bodyStyleBs .searchBox .icon div{
+    float:left;
+}
+.bodyStyleBs .searchBox .icon .searchBtnBox{
+    float:right;
+}
+.bodyStyleBs .searchBox .icon div input {
+    width: 200px;
+}
+.bodyStyleBs .searchBox .icon div a{
+    margin-left: 20px;
+    background-color: #0079FE;
+    color: #fff;
+    height: 36px;
+    line-height: 36px;
+    width: 80px;
+    float: right;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.bodyStyleBs .searchBox .icon div a:hover{
+    background-color: #0267d7;
+}
+.bodyStyleBs .searchBox .icon div label,.icon div input{
+    font-size:14px;
+    height:36px;
+    line-height:36px;
+    color: #373737;
+}
+.bodyStyleBs .searchBox .iconType{width:100%;margin-bottom:2%;}
+.bodyStyleBs .searchBox .iconType div{
+    width: 27%;
+    margin-left: 1%
+}

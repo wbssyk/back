@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.HomePageBannerMapper">
+
+  <sql id="Base_Column_List" >
+      ID, BANNER_NAME, BANNER_DESCRIBE,REVIEW
+      URL, CREATETIME, REMARK,REVIEW_STATUS,BANNER_TYPE
+      CHECK_STATUS, LAST_CHECK_TIME, CLICK_NUMBER,VIDEO_TIME
+    </sql>
+
+    <sql id="param">
+        <trim suffixOverrides=",">
+            <if test="request.bannerName!=null and request.bannerName!=''">
+                BANNER_NAME,
+            </if>
+            <if test="request.bannerDescribe!=null and request.bannerDescribe!=''">
+                BANNER_DESCRIBE,
+            </if>
+            <if test="request.id!=null and request.id!=''">
+                ID,
+            </if>
+            <if test="request.reviewStatus!=null and request.reviewStatus!=''">
+                REVIEW_STATUS,
+            </if>
+            <if test="request.url!=null and request.url!=''">
+                URL,
+            </if>
+            <if test="request.bannerType!=null and request.bannerType!=''">
+                BANNER_TYPE,
+            </if>
+            <if test="request.videoTime!=null">
+                VIDEO_TIME,
+            </if>
+            <if test=" request.createTime!=null">
+                CREATETIME,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="param_result">
+        <trim suffixOverrides=",">
+            <if test="request.bannerName!=null and request.bannerName!=''">
+                #{request.bannerName},
+            </if>
+            <if test="request.bannerDescribe!=null and request.bannerDescribe!=''">
+                #{request.bannerDescribe},
+            </if>
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.reviewStatus!=null and request.reviewStatus!=''">
+                #{request.reviewStatus},
+            </if>
+            <if test="request.url!=null and request.url!=''">
+                #{request.url},
+            </if>
+            <if test="request.bannerType!=null and request.bannerType!=''">
+                #{request.bannerType},
+            </if>
+            <if test="request.videoTime!=null">
+                #{request.videoTime},
+            </if>
+            <if test=" request.createTime!=null">
+                #{request.createTime},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="bannerInsert" parameterType="com.demo.back.entity.HomePageBanner">
+        INSERT INTO HOME_PAGE_BANNER
+        (<include refid="param"/> )
+        VALUES
+        (<include refid="param_result"/>)
+    </insert>
+
+    <update id="bannerUpdate" parameterType="com.demo.back.entity.HomePageBanner">
+        UPDATE HOME_PAGE_BANNER
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.reviewStatus!=null and  request.reviewStatus!=''">
+                    REVIEW_STATUS=#{request.reviewStatus},
+                </if>
+                <if test=" request.review!=null and  request.review!=''">
+                    REVIEW=#{request.review},
+                </if>
+                <if test=" request.checkStatus!=null">
+                    CHECK_STATUS=#{request.checkStatus},
+                </if>
+
+            </trim>
+        </set>
+        WHERE  ID = #{request.id}
+    </update>
+
+    <sql id="select_param">
+        <if test="request!=null">
+            <if test="request.bannerName!=null and request.bannerName!=''">
+                AND BANNER_NAME LIKE concat('%',#{request.bannerName},'%')
+            </if>
+        </if>
+        AND CHECK_STATUS BETWEEN 0 AND 1
+    </sql>
+
+    <select id="bannerList"
+            parameterType="com.demo.back.controller.business.homepagebanner.request.HomePageBannerRequest"
+            resultType="java.util.Map">
+        SELECT
+        ID AS "id", BANNER_NAME AS "noticeName",BANNER_DESCRIBE AS "bannerDescribe",
+        CHECK_STATUS AS "checkStatus",REVIEW_STATUS AS "reviewStatus",REVIEW AS "review",
+        DATE_FORMAT(CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime",
+        BANNER_TYPE AS "bannerType"
+        FROM HOME_PAGE_BANNER
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY CREATETIME DESC
+        LIMIT #{request.startNum},#{request.size}
+    </select>
+
+    <select id="bannerListCount"
+            parameterType="com.demo.back.controller.business.homepagebanner.request.HomePageBannerRequest"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM HOME_PAGE_BANNER
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+
+
+    <select id="selectById" resultType="java.util.Map">
+        SELECT  ID AS "id", BANNER_NAME AS "bannerName",BANNER_DESCRIBE AS "bannerDescribe",
+        URL AS "url" ,BANNER_TYPE AS "bannerType",VIDEO_TIME AS "videoTime"
+        FROM  HOME_PAGE_BANNER
+        WHERE ID = #{request.id}
+    </select>
+</mapper>

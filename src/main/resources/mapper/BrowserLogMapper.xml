@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.BrowserLogMapper">
+    <sql id="Base_Column_List">
+      ID, IP_ADDRESS,USER_NAME,LOG_VALUE,OPERATE_TYPE,TITLE,URL
+      CREATETIME, CHECK_STATUS, REMARK ,LAST_CHECK_TIME
+    </sql>
+
+
+    <!-- 对应的插入字段的名字 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                id,
+            </if>
+            <if test="request.ipAddress!=null and request.ipAddress!=''">
+                IP_ADDRESS,
+            </if>
+            <if test="request.mac!=null and request.mac!=''">
+                MAC,
+            </if>
+            <if test="request.userName!=null and request.userName!=''">
+                USER_NAME,
+            </if>
+            <if test="request.logValue!=null and request.logValue!='' ">
+                LOG_VALUE,
+            </if>
+            <if test="request.operateType!=null">
+                OPERATE_TYPE,
+            </if>
+            <if test="request.title!=null and request.title!='' ">
+                TITLE,
+            </if>
+            <if test="request.url!=null and request.url!='' ">
+                URL,
+            </if>
+            <if test="request.createTime!=null">
+                CREATETIME,
+            </if>
+
+        </trim>
+    </sql>
+
+    <!-- 对应的插入字段的值 -->
+    <sql id="values">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.ipAddress!=null and request.ipAddress!=''">
+                #{request.ipAddress},
+            </if>
+            <if test="request.mac!=null and request.mac!=''">
+                #{request.mac},
+            </if>
+            <if test="request.userName!=null and request.userName!=''">
+                #{request.userName},
+            </if>
+            <if test="request.logValue!=null and request.logValue!='' ">
+                #{request.logValue},
+            </if>
+            <if test="request.operateType!=null">
+                #{request.operateType},
+            </if>
+            <if test="request.title!=null and request.title!='' ">
+                #{request.title},
+            </if>
+            <if test="request.url!=null and request.url!='' ">
+                #{request.url},
+            </if>
+            <if test="request.createTime!=null ">
+                #{request.createTime},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insertLog">
+        INSERT INTO BROWSER_LOG
+        (<include refid="key"/>)
+        VALUES
+        (<include refid="values"/>)
+    </insert>
+
+
+    <sql id="select_param">
+        <if test="request.userName!=null and request.userName!=''">
+            AND  USER_NAME LIKE concat('%',#{request.userName},'%')
+        </if>
+        <if test="request.ipAddress!=null and request.ipAddress!=''">
+            AND IP_ADDRESS LIKE concat('%',#{request.ipAddress},'%')
+        </if>
+        <if test="request.title!=null and request.title!='' ">
+           AND TITLE LIKE concat('%',#{request.title},'%')
+        </if>
+        <if test="request.url!=null and request.url!='' ">
+           AND  URL LIKE concat('%',#{request.url},'%')
+        </if>
+        <if test="request.logValue!=null and request.logValue!='' ">
+          AND LOG_VALUE LIKE concat('%',#{request.logValue},'%')
+        </if>
+        <if test="request.operateType!=null  ">
+            AND OPERATE_TYPE = #{request.operateType}
+        </if>
+    </sql>
+
+    <select id="browserLogList" parameterType="com.demo.back.controller.log.browserlog.request.BrowserLogRequest"
+            resultType="java.util.Map">
+        SELECT
+        IP_ADDRESS AS "ipAddress",USER_NAME AS "userName",
+        MAC AS "mac",
+        LOG_VALUE AS "logValue",OPERATE_TYPE AS "operateType",
+        TITLE AS "title",URL AS "url",
+        DATE_FORMAT(CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime"
+        FROM BROWSER_LOG
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY CREATETIME DESC
+        LIMIT #{request.startNum},#{request.size}
+    </select>
+
+    <select id="browserLogListCount" parameterType="com.demo.back.controller.log.browserlog.request.BrowserLogRequest"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM  BROWSER_LOG
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+</mapper>

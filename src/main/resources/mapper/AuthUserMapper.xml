@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.AuthUserMapper">
+
+    <sql id="Base_Column_List">
+      ID, USERNAME,PASSWORD,LOGINUSER, EMAIL,SEX,CREATETIME,
+      PHONE,CHECK_STATUS, REMARK ,LAST_CHECK_TIME,INSTITUTION_NAME,USER_TYPE
+    </sql>
+
+    <!-- 对应的插入字段的名字 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                ID,
+            </if>
+            <if test="request.username!=null and request.username!=''">
+                USERNAME,
+            </if>
+            <if test="request.password!=null and request.password!=''">
+                PASSWORD,
+            </if>
+            <if test="request.loginUser!=null and request.loginUser!=''">
+                LOGINUSER,
+            </if>
+            <if test="request.remark!=null and request.remark!=''">
+                REMARK,
+            </if>
+            <if test=" request.sex!=null and  request.sex!=''">
+                SEX,
+            </if>
+            <if test="request.email!=null and request.email!=''">
+                EMAIL,
+            </if>
+            <if test="request.institutionName!=null and request.institutionName!=''">
+                INSTITUTION_NAME,
+            </if>
+            <if test="request.phone!=null and request.phone!=''">
+                PHONE,
+            </if>
+            <if test="request.createTime!=null">
+                CREATETIME,
+            </if>
+
+        </trim>
+    </sql>
+
+    <!-- 对应的插入字段的值 -->
+    <sql id="values">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.username!=null and request.username!=''">
+                #{request.username},
+            </if>
+            <if test="request.password!=null and request.password!=''">
+                #{request.password},
+            </if>
+            <if test="request.loginUser!=null and request.loginUser!=''">
+                #{request.loginUser},
+            </if>
+            <if test="request.remark!=null and request.remark!=''">
+                #{request.remark},
+            </if>
+            <if test=" request.sex!=null and  request.sex!=''">
+                #{request.sex},
+            </if>
+            <if test="request.email!=null and request.email!=''">
+                #{request.email},
+            </if>
+            <if test="request.institutionName!=null and request.institutionName!=''">
+                #{request.institutionName},
+            </if>
+            <if test="request.phone!=null and request.phone!=''">
+                #{request.phone},
+            </if>
+            <if test="request.createTime!=null">
+                #{request.createTime},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="com.demo.back.entity.AuthUser">
+        INSERT INTO AUTH_USER
+        (<include refid="key"/>)
+        VALUES
+        (<include refid="values"/>)
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.demo.back.entity.AuthUser">
+        UPDATE AUTH_USER
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.username!=null and request.username!=''">
+                    USERNAME =#{request.username},
+                </if>
+                <if test="request.password!=null and request.password!=''">
+                    PASSWORD=#{request.password},
+                </if>
+                <if test="request.loginUser!=null and request.loginUser!=''">
+                    LOGINUSER=#{request.loginUser},
+                </if>
+                <if test="request.remark!=null and request.remark!=''">
+                    REMARK=#{request.remark},
+                </if>
+                <if test=" request.sex!=null and  request.sex!=''">
+                    SEX=#{request.sex},
+                </if>
+                <if test="request.email!=null and request.email!=''">
+                    EMAIL=#{request.email},
+                </if>
+                <if test="request.phone!=null and request.phone!=''">
+                    PHONE=#{request.phone},
+                </if>
+            </trim>
+
+            WHERE ID = #{request.id}
+        </set>
+    </update>
+
+    <select id="findRolesByUserId" parameterType="java.lang.String" resultType="com.demo.back.entity.AuthUser">
+     SELECT ar.ROLENAME,ar.ROLE_TYPE AS "roleType" FROM AUTH_ROLE ar
+     LEFT JOIN AUTH_USER_ROLE aur ON ar.ID = aur.ROLEID
+     LEFT JOIN AUTH_USER au ON aur.USERID = au.ID
+     WHERE au.ID = #{userid}
+     AND aur.CHECK_STATUS = 0
+     AND ar.CHECK_STATUS = 0
+  </select>
+
+    <select id="findPermissionsByUserId" parameterType="java.lang.String" resultType="com.demo.back.entity.AuthUser">
+      SELECT ars.RESOURCEURL FROM AUTH_RESOURCES ars
+      LEFT JOIN AUTH_ROLE_RESOURCES arr ON arr.RESOURCEID = ars.ID
+      LEFT JOIN AUTH_ROLE ar ON arr.ROLEID = ar.ID
+      LEFT JOIN AUTH_USER_ROLE aur ON ar.ID = aur.ROLEID
+      LEFT JOIN AUTH_USER au ON au.ID = aur.USERID
+      WHERE au.ID = #{userid}
+      AND aur.CHECK_STATUS = 0
+      AND ar.CHECK_STATUS = 0
+  </select>
+    <select id="findPasswordByLoginUser" resultType="com.demo.back.entity.AuthUser">
+      SELECT ID, USERNAME, PASSWORD, LOGINUSER FROM AUTH_USER
+      WHERE LOGINUSER = #{loginuser}
+      AND CHECK_STATUS = 0
+    </select>
+
+    <sql id="select_param">
+        <if test="request!=null">
+            <if test="request.username!=null and request.username !=''">
+                AND au.USERNAME LIKE concat('%',#{request.username},'%')
+            </if>
+            <if test="request.createtime!=null and request.createtime !=''">
+                AND DATE(CREATETIME) = #{request.createtime}
+            </if>
+            <if test="request.loginUser!=null and request.loginUser!= ''">
+                AND au.LOGINUSER LIKE concat('%',#{request.loginUser},'%')
+            </if>
+        </if>
+        AND au.CHECK_STATUS != 2
+    </sql>
+
+    <select id="userList" parameterType="com.demo.back.controller.system.authusercontroller.request.AuthUserPageRequest"
+            resultType="com.demo.back.entity.AuthUser">
+        SELECT
+        au.ID, au.USERNAME,au.PASSWORD,au.LOGINUSER, au.EMAIL,au.SEX,
+        au.CHECK_STATUS AS "checkStatus",
+        au.PHONE,au.INSTITUTION_NAME,au.CREATETIME,au.INSTITUTION_NAME,ar.ROLENAME
+        FROM AUTH_USER au
+        LEFT JOIN AUTH_USER_ROLE aur ON au.ID = aur.USERID
+        LEFT JOIN AUTH_ROLE ar ON aur.ROLEID = ar.ID
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY au.CREATETIME DESC
+        LIMIT #{request.startNum}, #{request.size}
+    </select>
+    <select id="userListCount"
+            parameterType="com.demo.back.controller.system.authusercontroller.request.AuthUserPageRequest"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM AUTH_USER au
+        LEFT JOIN AUTH_USER_ROLE aur ON au.ID = aur.USERID
+        LEFT JOIN AUTH_ROLE ar ON aur.ROLEID = ar.ID
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+
+    <delete id="userDelete"
+            parameterType="com.demo.back.controller.system.authusercontroller.request.AuthUserPageRequest">
+        UPDATE AUTH_USER
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.checkStatus!=null">
+                    CHECK_STATUS = #{request.checkStatus},
+                </if>
+            </trim>
+        </set>
+        WHERE ID = #{request.id}
+    </delete>
+
+    <select id="userDetail" parameterType="java.lang.String" resultType="com.demo.back.entity.AuthUser">
+        SELECT  au.ID, au.USERNAME,au.PASSWORD,au.LOGINUSER, au.EMAIL,au.SEX,
+        au.PHONE,au.INSTITUTION_NAME,ar.ROLENAME
+        FROM AUTH_USER au
+        LEFT JOIN AUTH_USER_ROLE aur ON au.ID = aur.USERID
+        LEFT JOIN AUTH_ROLE ar ON aur.ROLEID = ar.ID
+        WHERE au.ID = #{id}
+    </select>
+
+    <select id="findByRoleId" parameterType="java.lang.String" resultType="com.demo.back.entity.AuthUser">
+        SELECT DISTINCT au.LOGINUSER,au.ID
+        FROM AUTH_USER au
+        LEFT JOIN AUTH_USER_ROLE aur ON au.ID = aur.USERID
+        WHERE aur.ROLEID = #{roleid}
+    </select>
+
+    <select id="selectByUserId" parameterType="java.lang.String" resultType="com.demo.back.entity.AuthUser">
+        SELECT ID, USERNAME AS "username",LOGINUSER AS "loginUser",CHECK_STATUS AS "checkStatus",
+        USER_TYPE AS "userType",PASSWORD AS "password"
+        FROM AUTH_USER
+        WHERE ID = #{userid}
+    </select>
+</mapper>

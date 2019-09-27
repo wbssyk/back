@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>海泰方圆浏览器后台管理</title>
+    <link rel="stylesheet" href="../static/public/bootstrap/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/public/bootstrap/bootstrap-3.3.7/css/icheck-bootstrap.css">
+    <link rel="stylesheet" href="../static/public/bootstrap/bootstrap-table/css/bootstrap-table.css">
+    <link rel="stylesheet" href="../static/public/bootstrap/bootbox/bootbox.min.css">
+    <link rel="stylesheet" href="../static/public/uploadHeader/webuploader.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/query.css">
+    <link rel="stylesheet"  href="../static/css/userManagement.css" />
+    <link rel="stylesheet"  href="../static/css/settingQuery.css" />
+    <link rel="stylesheet"  href="../static/css/customer.css" />
+    <link rel="stylesheet"  href="../static/css/widgetList.css" />
+    <link rel="stylesheet"  href="../static/css/controlType.css" />
+    <script src="../static/public/jquery-1.9.1.js"></script>
+    <script src="../static/public/bootstrap/bootstrap-3.3.7/js/bootstrap.js"></script>
+    <script src="../static/public/bootstrap/bootbox/bootbox.min.js"></script>
+    <script src="../static/public/bootstrap/bootstrap-table/js/bootstrap-table.min.js"></script>
+    <script src="../static/public/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="../static/public/jquery.validate.js"></script>
+    <script src="../static/public/additional-methods.js"></script>
+    <script src="../static/public/messages_zh.min.js"></script>
+    <script src="../static/public/bootstrap/bootstrap-3.3.7/js/icheck.js"></script>
+    <script src="../static/public/echarts/echarts.min.js"></script>
+    <script src="../static/public/uploadHeader/webuploader.js"></script>
+    <script language="javascript" src="../static/public/easing.js"></script>
+    <script src="../static/js/login/index.js"></script>
+
+</head>
+<!--<style>
+    .modal-backdrop.in{
+        opacity: 0.4!important;
+    }
+</style>-->
+<body>
+<!--最大盒子-->
+<div id="contentDiv">
+    <!--头部-->
+    <div id="bodyTop">
+        <div class="headerBox">
+            <span class="plateName"><img style="width: 34px;height: 32px;margin: 8px 8px 5px;" src="../static/images/logo2.png" />海泰方圆浏览器后台管理</span>
+            <div class="userBox">
+                <span id="logout" style="cursor: pointer;">退出</span>
+                <span>&nbsp;|&nbsp;</span>
+                <span id="rePwd" style="cursor: pointer;">修改密码 </span>
+                <div class="" id="dropdownUser">
+                </div>
+                <i></i>
+            </div>
+        </div>
+    </div>
+    <!--身体-->
+    <div id="bodyCont">
+        <!--左侧树-->
+        <div class="treeLeft">
+            <div class="treebox amazonmenu">
+                <ul class="menu">
+                </ul>
+            </div>
+        </div>
+        <!--右侧内容-->
+        <div class="contRight">
+            <!--右侧内容-->
+            <div class="contRights">
+                <iframe frameborder="0" scrolling="yes" style="width:86%;height:100%" src="" id="content"></iframe>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--用户管理以及角色管理弹框-->
+<div class="modal fade" id="ajax" style="overflow: hidden;" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ajax1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ajax2" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--权限设置弹框-->
+<div class="modal fade" id="setting" style="overflow: hidden;" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--删除提示框-->
+<div class="modal fade" id="ajaxDele" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top: 200px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">关闭</span>
+                </button>
+                <h4 class="modal-title" id="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                确认删除？
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="saveBtn">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--禁用提示框-->
+<div class="modal fade" id="ajaxRes" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top: 200px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">关闭</span>
+                </button>
+                <h4 class="modal-title" id="modal-title1">提示</h4>
+            </div>
+            <div class="modal-body">
+                确认禁用或启用？
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="saveBtn">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--客户端管理-->
+<div class="modal fade" id="customerAds" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--控件管理-->
+<div class="modal fade" id="widgetAds" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--控件类型管理-->
+<div class="modal fade" id="controls" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--图片视频管理-->
+<div class="modal fade" id="videoImgs" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--公告管理-->
+<div class="modal fade" id="noticess" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--公告管理-->
+<div class="modal fade" id="noticess" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--默认策略管理-->
+<div class="modal fade" id="strategyList" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--应用策略管理-->
+<div class="modal fade" id="application" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--，模块-->
+<div class="modal fade" id="modalBqSetting" style="overflow: hidden;" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 100px;">
+        </div>
+    </div>
+</div>
+<!--审核提示框-->
+<div class="modal fade" id="ajaxMine" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top: 200px;">
+            <div class="modal-header">
+                <button type="button" class="close js_cancel" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">关闭</span>
+                </button>
+                <h4 class="modal-title">审核意见</h4>
+            </div>
+            <div class="modal-body">
+                <div class="settingStyle" style="padding-left: 60px;margin-bottom: 10px;">
+                    <label for="">是否同意:</label>
+                    <select class="roleList" style="padding: 3px;width: 87%;">
+                        <option value="2">同意</option>
+                        <option value="3">不同意</option>
+                    </select>
+                </div>
+                <div class="settingStyle tarea" style="position: relative;">
+                    <label for="" style="margin-left: 10.5%;position: absolute;">审核意见:</label>
+                    <textarea style="margin-left: 124px;width: 78%;height: 80px;" class="roleDesc textarea" placeholder="请输入"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="saveBtnMine">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--更新提示框-->
+<div class="modal fade" id="ajaxDeleWidget" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top: 200px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">关闭</span>
+                </button>
+                <h4 class="modal-title" id="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                是否更新？
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="saveBtnWidget">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    //用户管理以及角色管理弹框
+    function modalOut(url) {$("#ajax").modal({remote: url});}
+    function modalOut1(url) {$("#ajax1").modal({remote: url});}
+    function modalOut2(url) {$("#ajax2").modal({remote: url});}
+    //删除
+    function modalOutDele() {$("#ajaxDele").modal()}
+    //是否更新
+    function ajaxDeleWidget() {$("#ajaxDeleWidget").modal()}
+    //删除
+    function ajaxRes() {$("#ajaxRes").modal()}
+    //审核
+    function ajaxMine() {$("#ajaxMine").modal()}
+    //权限管理弹框 setting
+    function modalSetting(url) {$("#setting").modal({remote: url});}
+    function modalBqSetting(url) {$("#modalBqSetting").modal({remote: url});}
+    //客户端管理
+    function customerAds(url) {$("#customerAds").modal({remote: url});}
+    //视频图片管理
+    function videoImgs(url) {$("#videoImgs").modal({remote: url});}
+    //视频图片管理
+    function noticess(url) {$("#noticess").modal({remote: url});}
+    //控件管理
+    function widgetAds(url) {$("#widgetAds").modal({remote: url});}
+
+    //控件类型管理
+    function controls(url) {$("#controls").modal({remote: url});}
+    //默认策略管理
+    function strategyList(url) {$("#strategyList").modal({remote: url});}
+    //应用策略管理
+    function application(url) {$("#application").modal({remote: url});}
+</script>

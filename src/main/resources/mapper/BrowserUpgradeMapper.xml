@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.BrowserUpgradeMapper">
+
+    <sql id="Base_Column_List">
+      ID, BROWSER_NAME, BROWSER_DESCRIBE,URL, VERSION, CREATETIME,REMARK,
+      CHECK_STATUS, LAST_CHECK_TIME,BROWSER_TYPE,REVIEW_STATUS,NUM_VERSION,REVIEW,
+      CONSTRAINT_STATUS
+    </sql>
+
+
+    <!-- 对应的插入字段的名字 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                ID,
+            </if>
+            <if test="request.browserName!=null and request.browserName!=''">
+                BROWSER_NAME,
+            </if>
+            <if test="request.browserDescribe!=null and request.browserDescribe!=''">
+                BROWSER_DESCRIBE,
+            </if>
+            <if test="request.url!=null and request.url!=''">
+                URL,
+            </if>
+            <if test=" request.version!=null and  request.version!=''">
+                VERSION,
+            </if>
+            <if test=" request.browserType!=null and  request.browserType!=''">
+                BROWSER_TYPE,
+            </if>
+            <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                REVIEW_STATUS,
+            </if>
+            <if test=" request.numVersion!=null and  request.numVersion!=''">
+                NUM_VERSION,
+            </if>
+            <if test=" request.remark!=null and  request.remark!=''">
+                REMARK,
+            </if>
+            <if test=" request.constraintStatus!=null and  request.constraintStatus!=''">
+                CONSTRAINT_STATUS,
+            </if>
+            <if test=" request.createTime!=null">
+                CREATETIME,
+            </if>
+            <if test=" request.versionMark!=null">
+                VERSION_MARK,
+            </if>
+            <if test=" request.md5!=null and request.md5!='' ">
+                MD5,
+            </if>
+
+        </trim>
+    </sql>
+
+    <!-- 对应的插入字段的值 -->
+    <sql id="values">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.browserName!=null and request.browserName!=''">
+                #{request.browserName},
+            </if>
+            <if test="request.browserDescribe!=null and request.browserDescribe!=''">
+                #{request.browserDescribe},
+            </if>
+            <if test="request.url!=null and request.url!=''">
+                #{request.url},
+            </if>
+            <if test=" request.version!=null and  request.version!=''">
+                #{request.version},
+            </if>
+            <if test=" request.browserType!=null and  request.browserType!=''">
+                #{request.browserType},
+            </if>
+            <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                #{request.reviewStatus},
+            </if>
+            <if test=" request.numVersion!=null and  request.numVersion!=''">
+                #{request.numVersion},
+            </if>
+            <if test=" request.remark!=null and  request.remark!=''">
+                #{request.remark},
+            </if>
+            <if test=" request.constraintStatus!=null and  request.constraintStatus!=''">
+                #{request.constraintStatus},
+            </if>
+            <if test=" request.createTime!=null">
+                #{request.createTime},
+            </if>
+            <if test=" request.versionMark!=null">
+                #{request.versionMark},
+            </if>
+            <if test=" request.md5!=null and request.md5!='' ">
+                #{request.md5},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="com.demo.back.entity.BrowserUpgrade">
+        INSERT INTO BROWSER_UPGRADE
+        (
+        <include refid="key"/>
+        )
+        VALUES
+        (<include refid="values"/>)
+    </insert>
+
+
+    <update id="browserUpdate">
+        UPDATE BROWSER_UPGRADE
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.browserName!=null and request.browserName!=''">
+                    BROWSER_NAME=#{request.browserName},
+                </if>
+                <if test="request.browserDescribe!=null and request.browserDescribe!=''">
+                    BROWSER_DESCRIBE=#{request.browserDescribe},
+                </if>
+                <if test="request.url!=null and request.url!=''">
+                    URL=#{request.url},
+                </if>
+                <if test=" request.version!=null and  request.version!=''">
+                    VERSION=#{request.version},
+                </if>
+                <if test=" request.browserType!=null and  request.browserType!=''">
+                    BROWSER_TYPE=#{request.browserType},
+                </if>
+                <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                    REVIEW_STATUS=#{request.reviewStatus},
+                </if>
+                <if test=" request.checkStatus!=null">
+                    CHECK_STATUS=#{request.checkStatus},
+                </if>
+                <if test=" request.review!=null">
+                    REVIEW=#{request.review},
+                </if>
+
+            </trim>
+        </set>
+        WHERE ID = #{request.id}
+    </update>
+
+
+    <sql id="select_param">
+        <if test="request!=null">
+            <if test="request.browserName!=null and request.browserName!=''">
+                AND BROWSER_NAME LIKE concat('%',#{request.browserName},'%')
+            </if>
+        </if>
+        AND CHECK_STATUS = 0
+    </sql>
+
+    <select id="browserList" resultType="java.util.Map">
+        SELECT
+        ID AS "id", BROWSER_NAME AS "browserName", BROWSER_DESCRIBE AS "browserDescribe",
+        URL AS "url", VERSION AS "version",CHECK_STATUS AS "checkStatus",
+        BROWSER_TYPE AS "browserType",REVIEW_STATUS AS "reviewStatus",REVIEW AS "review",
+        CONSTRAINT_STATUS AS "constraintStatus",
+        DATE_FORMAT(CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime"
+        FROM BROWSER_UPGRADE
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY VERSION_MARK DESC
+        LIMIT #{request.startNum},#{request.size}
+    </select>
+
+    <select id="browserListCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM BROWSER_UPGRADE
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+
+    <select id="selectById" resultType="com.demo.back.entity.BrowserUpgrade">
+        SELECT
+        ID, BROWSER_NAME AS "browserName", BROWSER_DESCRIBE AS "browserDescribe",
+        URL, VERSION, NUM_VERSION AS "numVersion", BROWSER_TYPE AS "browserType",
+        CONSTRAINT_STATUS AS "constraintStatus",VERSION_MARK AS "versionMark",
+        MD5 AS "md5"
+        FROM BROWSER_UPGRADE
+        WHERE CHECK_STATUS = 0
+        AND ID = #{request.id}
+    </select>
+
+    <select id="selectMaxVersion" resultType="com.demo.back.entity.BrowserUpgrade">
+        SELECT
+        MAX(VERSION_MARK)
+        FROM BROWSER_UPGRADE
+        WHERE CHECK_STATUS = 0
+        AND REVIEW_STATUS = 1
+    </select>
+
+    <select id="selectUnReviewByName" resultType="com.demo.back.entity.BrowserUpgrade">
+        SELECT
+        BROWSER_NAME,ID,BROWSER_TYPE AS "browserType"
+        FROM BROWSER_UPGRADE
+        WHERE CHECK_STATUS = 0
+        AND REVIEW_STATUS = 1
+        AND BROWSER_NAME = #{browserName}
+        AND BROWSER_TYPE = #{browserType}
+    </select>
+
+    <select id="selectMaxVersionByType" resultType="com.demo.back.entity.BrowserUpgrade">
+        SELECT
+        MAX(VERSION_MARK) AS "versionMark"
+        FROM BROWSER_UPGRADE
+        WHERE BROWSER_TYPE = #{browserType}
+    </select>
+</mapper>

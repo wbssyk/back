@@ -1,0 +1,199 @@
+.bodyStyle3{
+    height: 100%;
+    background-color: #F0F2F5;
+    width: 100%;
+    overflow: hidden;
+}
+.bodyStyle3 .searchBox {
+    width: 100%;
+    float: left;
+    height: 100%;
+}
+.bodyStyle3 .searchBox .searchTitle {
+    height: 50px;
+    background-color: #fff;
+    line-height: 30px;
+   /* padding-left: 1%;*/
+    margin-bottom: 1.5%;
+}
+.bodyStyle3 .searchBox .searchTitle .searchStyle {
+    color: #0079FE;
+    border: 3px solid #0079FE;
+    margin-right: 10px;
+    float: left;
+    margin-top: 1%;
+    height: 20px;
+}
+.bodyStyle3 .searchBox .searchTitle .searchText {
+    float: left;
+    line-height: 50px;
+    font-size: 14px;
+}
+
+.bodyStyle3 .searchBox .searchTitle table{
+    width: 100%;
+}
+.bodyStyle3 .searchBox .searchTitle table, th, td{
+    /*border: 1px solid #ccc;*/
+    text-align: center;
+}
+.bodyStyle3 .searchBox .searchTitle table label{
+    margin-right: 2px;
+}
+.bodyStyle3 .searchBox .contentBox{
+    margin:0 1.5% 1.5%;
+}
+.bodyStyle3 .searchBox .icon,.content {
+    overflow:hidden;
+    background-color: #fff;
+    margin-bottom: 1.5%;
+    padding: 1.5% 2% 0 2%;
+}
+.bodyStyle3 .searchBox .icon div{
+    float:left;
+}
+.bodyStyle3 .searchBox .icon .searchBtnBox{
+    float:right;
+    width: 33%;
+}
+.bodyStyle3 .searchBox .icon div input {
+    width: 200px;
+}
+.bodyStyle3 .searchBox .icon div a{
+    margin-left: 20px;
+    background-color: #0079FE;
+    color: #fff;
+    height: 36px;
+    line-height: 36px;
+    width: 80px;
+    float: right;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.bodyStyle3 .searchBox .icon div a:hover{
+    background-color: #0267d7;
+}
+.bodyStyle3 .searchBox .icon div label,.icon div input{
+    font-size:14px;
+    height:36px;
+    line-height:36px;
+    color: #373737;
+}
+.bodyStyle3 .searchBox .iconType{width:65%;margin-bottom:2%;}
+.iconTitle{height: 30px;width: 100%;margin-bottom: 2%;font-size: 16px; border-bottom: 1px solid #ccc;}
+.iconTitle div{height:50px;line-height:50px;text-align: center;font-size: 16px;border:1px solid #ccc;width:13%;}
+
+.iconType div {float: left;width: 41%;margin-left: 1%;}
+.companyBox{margin-left: 5%;}
+/* label{width: 30%;overflow: hidden;} */
+.icon div input { width: 65%;float: left;}
+.icon div label{float: left;text-align: center;}
+.js_role{margin-right:20px;}
+
+/*寮瑰眰*/
+.popBox{display:none;}
+.pop{
+    display:none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+}
+.popBox,.rolePopBox{
+    display: none;
+    position: absolute;
+    color: #fff;
+    border: 1px solid #fff;
+    width: 50%;
+    left: 25%;
+    height: 53%;
+    top: 23%;
+    padding: 2%;
+    background-color: #fff;
+}
+
+#detailToolbar{
+	margin-bottom:1.5%;
+}
+.settingBox p{border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    font-weight: bold;margin-bottom: 5%;
+}
+
+.settingStyle{
+	width: 75%;
+    text-align: center;
+    margin-left: 15%;
+    height: 50px;
+    margin-bottom: 2%;
+}
+.tarea{
+	height:100px;
+}
+.btnBox{
+	text-align:right;
+}
+.settingStyle span{
+    color: red;
+    line-height: 40px;
+    float: left;
+}
+.settingStyle label{
+    line-height: 40px;
+    height: 40px;
+    float: left;
+    width: 15%;
+}
+.settingStyle input,.settingStyle textarea,.settingStyle select{
+    width: 80%;
+    height: 40px;
+    line-height: 20px;
+    float: left;
+}
+.settingStyle textarea{
+    height:100px;
+}
+.btnBox a{
+    width: 80px;
+    display: inline-block;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #0361ED;
+}
+.btnBox a:hover{
+    color:#fff;
+}
+
+.fl{
+	float:left;
+}
+.addRole{
+	height:460px;
+	margin:0 1.5% 1.5%;
+	padding:1.5%;
+	background-color:#fff;
+	display:none;
+}
+.listBox{
+	overflow:hidden;
+}
+.list{
+	float:left;
+	width:20%;
+	height:30px;
+}
+.listGroup {
+	width:14%;
+}
+.listHeader{
+	font-size:16px;
+	height:40px;
+	line-height:40px;
+}

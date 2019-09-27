@@ -1,0 +1,63 @@
+server:
+  port: 9080
+#  servlet:
+#    path: /jt_browser/
+
+#使用JNDI方式连接数据库方式
+#需要配置web容器，tomcat配置context.xml,需要在tomcat下lib中放入数据库驱动jar包
+#spring:
+#  datasource:
+#    jndi-name: jdbc/shiyakun
+
+#直接连接数据库方式
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.5.100:3306/demo?characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: haitai@123
+
+  redis:
+    host: 192.168.5.100
+    port: 6379
+    password: haitai@123
+  cache:
+    type: redis
+
+#ftp方式上传
+ftp:
+  user: ht #用户名
+  password: haitai123456 #密码
+  ip: 192.168.5.100 #ftp服务器地址
+  port: 21 #ftp服务器端口号
+  file-path: /upload   #默认上传的文件夹
+  down-load-url: http://192.168.5.100:40000/ #配置nginx的服务器地址和端口号
+
+#sftp方式上传
+sftp:
+  client:
+    host: 192.168.5.100 #ftp服务器地址
+    port: 22 #ftp服务器端口号
+    protocol: sftp # 协议
+    root: /usr/local/jt/ #默认文件夹
+    sftp-root: upload #sftp 权限文件夹
+    session-strict-host-key-checking: no
+    session-connect-timeout: 15000 # session连接超时时间
+    channel-connected-timeout: 15000 # channel连接超时时间
+    username: sftp #用户名
+    password: haitai@123 #密码
+    down-load-url: http://192.168.5.100:40000/ #配置nginx的服务器地址和端口号
+
+#配置mybatis
+mybatis:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+
+#打印sql语句
+logging:
+#  level:
+#    com.demo.back.dao: debug
+  file: mylog.log
+  path: log
+
+
+

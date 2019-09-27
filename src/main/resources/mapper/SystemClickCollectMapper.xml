@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.SystemClickCollectMapper">
+
+    <sql id="Base_Column_List">
+    ID, NOTICE_CLICK_NUM, VIDEO_CLICK_NUM,
+      ADVERT_CLICK_NUM, CREATETIME, REMARK,
+      CHECK_STATUS, LAST_CHECK_TIME
+    </sql>
+
+</mapper>

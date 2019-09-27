@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.HomePageAdvertMapper">
+
+    <sql id="Base_Column_List">
+      ID, ADVERT_NAME, ADVERT_DESCRIBE,
+      URL, CREATETIME, REMARK,
+      CHECK_STATUS, LAST_CHECK_TIME, CLICK_NUMBER
+    </sql>
+
+
+    <update id="updateById" parameterType="com.demo.back.scheduled.api.ScheduledRequest">
+        UPDATE HOME_PAGE_ADVERT
+        <set>
+            CLICK_NUMBER = #{request.clickNum}
+        </set>
+        WHERE ID = #{request.id}
+    </update>
+
+    <select id="selectClickNumById" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT CLICK_NUMBER FROM HOME_PAGE_ADVERT
+        WHERE  ID = #{id}
+    </select>
+
+    <update id="updateClickNumById">
+        UPDATE HOME_PAGE_ADVERT
+        <set>
+            CLICK_NUMBER = #{num}
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+</mapper>

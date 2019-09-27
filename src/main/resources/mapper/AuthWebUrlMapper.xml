@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.AuthWebUrlMapper">
+    <sql id="Base_Column_List">
+     ID, HTML_URL, URL_NAME, CREATETIME, REMARK, CHECK_STATUS, LAST_CHECK_TIME,PARENT_NAME,ICON_TYPE
+    </sql>
+
+
+    <!-- 对应的插入字段的名字 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                ID,
+            </if>
+            <if test="request.htmlUrl!=null and request.htmlUrl!=''">
+                HTML_URL,
+            </if>
+            <if test="request.urlName!=null and request.urlName!=''">
+                URL_NAME,
+            </if>
+            <if test="request.parentName!=null and request.parentName!=''">
+                PARENT_NAME,
+            </if>
+            <if test="request.createTime!=null">
+                CREATETIME,
+            </if>
+            <if test="request.sort!=null">
+                SORT,
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 对应的插入字段的值 -->
+    <sql id="values">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.htmlUrl!=null and request.htmlUrl!=''">
+                #{request.htmlUrl},
+            </if>
+            <if test="request.urlName!=null and request.urlName!=''">
+                #{request.urlName},
+            </if>
+            <if test="request.parentName!=null and request.parentName!=''">
+                #{request.parentName},
+            </if>
+            <if test="request.createTime!=null">
+                #{request.createTime},
+            </if>
+            <if test="request.sort!=null">
+                #{request.sort},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="resourceInsert" parameterType="com.demo.back.entity.AuthWebUrl">
+        INSERT INTO AUTH_WEBURL
+        (<include refid="key"/>)
+        VALUES
+        (<include refid="values"/>)
+    </insert>
+
+    <update id="resourceUpdate" parameterType="com.demo.back.entity.AuthWebUrl">
+        UPDATE AUTH_WEBURL
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.urlName!=null and request.urlName!=''">
+                    URL_NAME=#{request.urlName},
+                </if>
+                <if test="request.parentName!=null and request.parentName!=''">
+                    PARENT_NAME=#{request.parentName},
+                </if>
+            </trim>
+        </set>
+        WHERE ID = #{request.id}
+    </update>
+
+    <update id="resourceDelete" parameterType="com.demo.back.entity.AuthWebUrl">
+        UPDATE AUTH_WEBURL
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.checkStatus!=null">
+                    CHECK_STATUS = #{request.checkStatus},
+                </if>
+            </trim>
+        </set>
+        WHERE ID = #{request.id}
+    </update>
+
+    <sql id="select_param">
+        <if test="request!=null">
+            <if test="request.UrlName!=null and request.UrlName!=''">
+                AND aw.URL_NAME LIKE concat('%',#{request.UrlName},'%')
+            </if>
+
+            <if test="request.parentName!=null and request.parentName!=''">
+                AND aw.PARENT_NAME LIKE concat('%',#{request.parentName},'%')
+            </if>
+        </if>
+        AND aw.CHECK_STATUS !=2
+    </sql>
+
+    <select id="resourceList" parameterType="com.demo.back.controller.system.authresourcecontroller.request.AuthWebUrlRequest"
+            resultType="java.util.Map">
+        SELECT
+        aw.ID AS "id", aw.URL_NAME AS "urlName",aw.ICON_TYPE AS "iconName",
+        aw.CHECK_STATUS AS "checkStatus",aw.PARENT_NAME AS "parentName",
+        DATE_FORMAT(aw.CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime"
+        FROM AUTH_WEBURL aw
+        <where>
+            <include refid="select_param"/>
+        </where>
+        LIMIT #{request.startNum} ,#{request.size}
+    </select>
+
+    <select id="resourceListCount" parameterType="com.demo.back.controller.system.authresourcecontroller.request.AuthWebUrlRequest"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM AUTH_WEBURL aw
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+
+    <select id="selectAllForLeftSideBar" resultType="java.util.Map">
+        SELECT  HTML_URL AS "htmlUrl", URL_NAME AS "resourceName",
+        PARENT_NAME AS "parentName",ID AS "resourceId",
+        ICON_TYPE AS "iconName",SORT AS "sort"
+        FROM AUTH_WEBURL
+        WHERE CHECK_STATUS = 0
+    </select>
+
+    <select id="selectForLeftSideBar" parameterType="com.demo.back.controller.system.authresourcecontroller.request.PermissionRequest"
+            resultType="java.util.Map">
+        SELECT aw.HTML_URL AS "htmlUrl", aw.URL_NAME AS "resourceName",
+        aw.PARENT_NAME AS "parentName",aw.ID AS "resourceId",
+        aw.ICON_TYPE AS "iconName",aw.SORT AS "sort"
+        FROM AUTH_ROLE ar
+        LEFT JOIN  AUTH_ROLE_WEBURL arw ON ar.ID = arw.ROLE_ID
+        LEFT JOIN AUTH_WEBURL aw ON arw.WEBURL_ID = aw.ID
+        WHERE aw.CHECK_STATUS =0
+        <choose>
+            <when test='request.type == "0"'>
+                AND ar.CHECK_STATUS =0
+            </when>
+            <otherwise>
+                AND ar.CHECK_STATUS !=2
+            </otherwise>
+        </choose>
+        AND ar.ID = #{request.roleId}
+    </select>
+
+
+    <select id="selectByHtmlUrl" resultType="com.demo.back.entity.AuthWebUrl">
+        SELECT <include refid="Base_Column_List"/>
+        FROM AUTH_WEBURL
+        WHERE HTML_URL = #{htmlUrl}
+    </select>
+
+</mapper>

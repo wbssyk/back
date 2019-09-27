@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>角色管理</title>
+    <script src="../../static/public/commonJs.js"></script>
+    <script language="javascript" src="../../static/js/strategy/strategyList.js"></script>
+</head>
+<body class="bodyStyle2">
+<div class="searchBox">
+    <div class="searchTitle">
+        <span class="searchStyle" style="margin-left: 1%"></span>
+        <span class="searchText">客户端策略管理>>默认策略管理</span>
+    </div>
+    <div class="contentBox">
+        <div class="icon">
+            <div class="iconType">
+                <!-- <div>
+                    <label>账号：</label>
+                    <input type="text" maxlength="10" class="js_accountNumber">
+                </div> -->
+                <!-- <div class="creditCodeBox">
+                    <label>用户名：</label>
+                    <input type="text" maxlength="20" class="js_name">
+                </div> -->
+                <!--<div class="companyBox">
+                    <label>组织机构：</label>
+                    <input type="text" maxlength="20" class="js_data">
+                </div>-->
+            </div>
+
+            <!-- <div class="searchBtnBox">
+                <a href="javascript:;" class="js_resetQuery">重置</a>
+                <a href="javascript:;" class="query">查询</a>
+            </div> -->
+        </div>
+        <div class="content">
+            <table id="detailGrid1">
+            </table>
+        </div>
+    </div>
+
+	<div class="detailBox" style="display:none;">
+            <div  class="iconTitle">用户资料</div>
+            <div class="userInfo">
+                <div>
+                    <label>姓名：</label>
+                    <input type="text" readonly="readonly" maxlength="10" class="js_fullName">
+                </div>
+                <div class="">
+                    <label>身份证号：</label>
+                    <input type="text" readonly="readonly" maxlength="20" class="js_idNumber">
+                </div>
+
+                <div class="">
+                    <label>性别：</label>
+                    <input type="radio" readonly="readonly" maxlength="20" class="js_man" name="gender" value="0"><span class="js_manText">男</span>
+                    <input type="radio" readonly="readonly" maxlength="20" class="js_woman" name="gender" value="1"><span class="js_womanText">女</span>
+                </div>
+                <div class="">
+                    <label>单位名称：</label>
+                    <input type="text" readonly="readonly" maxlength="20" class="js_nameOfUnit">
+                </div>
+                <div class="">
+                    <label>邮箱：</label>
+                    <input type="text" readonly="readonly" maxlength="20" class="js_mailbox">
+                </div>
+                <div class="">
+                    <label>手机号：</label>
+                    <input type="text" readonly="readonly" maxlength="20" class="js_phoneNumber">
+                </div>
+            </div>
+            <div class="btnBox">
+                <a href="javascript:;" class="js_determineBtn">确定</a>
+            </div>
+        </div>
+</div>
+</body>
+</html>

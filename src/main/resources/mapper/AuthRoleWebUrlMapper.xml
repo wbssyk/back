@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.AuthRoleWebUrlMapper">
+
+  <sql id="Base_Column_List">
+    ID, WEBURL_ID, ROLE_ID,CREATETIME, REMARK, CHECK_STATUS,LAST_CHECK_TIME
+    </sql>
+
+  <insert id="roleWebPermissionBatchInsert" parameterType="java.util.List">
+    INSERT INTO AUTH_ROLE_WEBURL
+    ( ID, ROLE_ID, WEBURL_ID)
+    VALUES
+    <foreach collection="request" separator="," index="index" item="d">
+      (#{d.resourceRoleId},#{d.roleId},#{d.resourceId})
+    </foreach>
+  </insert>
+
+  <delete id="deleteByRoleId" parameterType="java.lang.String">
+        DELETE FROM AUTH_ROLE_WEBURL
+        WHERE ROLE_ID = #{roleid}
+    </delete>
+</mapper>

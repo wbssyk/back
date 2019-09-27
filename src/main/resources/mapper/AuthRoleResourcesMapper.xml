@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.AuthRoleResourcesMapper">
+    <sql id="Base_Column_List">
+      ID, ROLEID, RESOURCEID, CREATETIME, CHECK_STATUS, REMARK ,LAST_CHECK_TIME
+    </sql>
+
+
+    <select id="selectCountByResourceIdAndRoleId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM AUTH_ROLE_RESOURCES arr
+        WHERE arr.RESOURCEID = #{resourceid}
+        AND arr.ROLEID = #{roleid}
+    </select>
+
+    <insert id="rolePermissionInsert"
+            parameterType="com.demo.back.controller.system.authresourcecontroller.request.PermissionRequest">
+        INSERT INTO AUTH_ROLE_RESOURCES
+        (ID,RESOURCEID,ROLEID)
+        VALUES
+        (#{request.resourceRoleId},#{request.resourceId},#{request.roleId})
+    </insert>
+
+    <delete id="deleteByBatchId" parameterType="java.util.List">
+        DELETE FROM AUTH_ROLE_RESOURCES arr
+        WHERE arr.ID IN
+        <foreach collection="request" open="(" separator="," item="d" index="index" close=")">
+            #{d.resourceRoleId}
+        </foreach>
+    </delete>
+
+    <insert id="rolePermissionBatchInsert" parameterType="java.util.List">
+        INSERT INTO AUTH_ROLE_RESOURCES
+        ( ID, ROLEID, RESOURCEID,CHECK_STATUS)
+        VALUES
+        <foreach collection="request" separator="," index="index" item="d">
+            (#{d.resourceRoleId},#{d.roleId},#{d.resourceId},0)
+        </foreach>
+    </insert>
+
+    <delete id="deleteByRoleId" parameterType="java.lang.String">
+        DELETE FROM AUTH_ROLE_RESOURCES arr
+        WHERE arr.ROLEID = #{roleid}
+    </delete>
+</mapper>

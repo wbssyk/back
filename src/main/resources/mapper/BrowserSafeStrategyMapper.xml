@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.BrowserSafeStrategyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.demo.back.entity.BrowserSafeStrategy">
+        <id column="ID" property="id" />
+        <result column="COPY_STATE" property="copyState" />
+        <result column="DRAG_STATE" property="dragState" />
+        <result column="PRINT_STATE" property="printState" />
+        <result column="DOWNLOAD_STATE" property="downloadState" />
+        <result column="WATERMARK_STATE" property="watermarkState" />
+        <result column="CREATETIME" property="createTime" />
+        <result column="REVIEW_STATUS" property="reviewStatus" />
+        <result column="CHECK_STATUS" property="checkStatus" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, COPY_STATE, DRAG_STATE, PRINT_STATE, DOWNLOAD_STATE,
+        WATERMARK_STATE, CREATETIME, REVIEW_STATUS,CHECK_STATUS
+    </sql>
+    
+    <sql id="select_param">
+        CHECK_STATUS = 0
+    </sql>
+
+    <select id="browserSafeStrategyInfoList" resultType="com.demo.back.entity.BrowserSafeStrategy">
+        SELECT
+        ID AS "id",CREATETIME AS "createTime",CHECK_STATUS AS "checkStatus",
+        REVIEW_STATUS AS "reviewStatus",COPY_STATE AS "copyState", DRAG_STATE AS "dragState",
+        PRINT_STATE AS "printState",DOWNLOAD_STATE AS "downloadState",
+        WATERMARK_STATE AS "watermarkState"
+        FROM BROWSER_SAFE_STRATEGY
+        <where>
+            <include refid="select_param"/>
+        </where>
+        limit #{request.startNum},#{request.size}
+    </select>
+
+    <select id="browserSafeStrategyInfoListCount" resultType="java.lang.Integer">
+        SELECT  COUNT(1)
+        FROM BROWSER_SAFE_STRATEGY
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+    
+    <update id="browserSafeStrategyInfoUpdate">
+        UPDATE BROWSER_SAFE_STRATEGY
+        <set>
+            <if test="request.copyState!=null ">
+                COPY_STATE = #{request.copyState},
+            </if>
+            <if test="request.dragState!=null  ">
+                DRAG_STATE = #{request.dragState},
+            </if>
+            <if test="request.printState!=null ">
+                PRINT_STATE = #{request.printState},
+            </if>
+            <if test="request.downloadState!=null  ">
+                DOWNLOAD_STATE = #{request.downloadState},
+            </if>
+            <if test="request.watermarkState!=null  ">
+                WATERMARK_STATE = #{request.watermarkState},
+            </if>
+            <!-- <if test="request.createtime!=null and request.createtime!='' ">
+                CREATETIME = #{request.createtime}
+            </if> -->
+            <if test="request.reviewStatus!=null and request.reviewStatus!=''  ">
+                REVIEW_STATUS = #{request.reviewStatus},
+            </if>
+            <!--<if test="request.state!=null and request.state!='' ">-->
+                <!--STATE = #{request.state},-->
+            <!--</if>-->
+        </set>
+        WHERE ID = #{request.id}
+    </update>
+
+
+    <select id="browserSafeStrategyInfoDetail" resultType="java.util.Map">
+        SELECT ID AS "id",REVIEW_STATUS AS "reviewStatus",
+        COPY_STATE AS "copyState", DRAG_STATE AS "dragState", PRINT_STATE AS "printState",
+        DOWNLOAD_STATE AS "downloadState",WATERMARK_STATE AS "watermarkState"
+        FROM BROWSER_SAFE_STRATEGY
+        WHERE ID = #{request.id}
+    </select>
+
+    <select id="selectSafeStrategyService" resultType="java.util.Map">
+        SELECT
+        COPY_STATE AS "copyState", DRAG_STATE AS "dragState", PRINT_STATE AS "printState",
+        DOWNLOAD_STATE AS "downloadState",WATERMARK_STATE AS "watermarkState"
+        FROM BROWSER_SAFE_STRATEGY
+        WHERE REVIEW_STATUS = 2
+        AND CHECK_STATUS = 0
+    </select>
+
+</mapper>

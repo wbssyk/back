@@ -1,0 +1,83 @@
+.contentBox{margin-top:2%;padding: 1%;}
+
+.searchBox {
+    width: 86%;
+    float: left;
+    height: 750px;
+}
+.searchTitle {
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    line-height: 30px;
+    padding-left: 1%;
+}
+.searchStyle {
+    color: blue;
+    border: 3px solid blue;
+    margin-right: 10px;
+    float: left;
+    margin-top: 1%;
+    height: 20px;
+}
+.searchText {
+    float: left;
+    line-height: 50px;
+    font-size: 16px;
+}
+
+/*方块的样式*/
+.chartDivBox1{height:140px;}
+.chartDiv{
+    width: 23.5%;
+    float: left;
+    background-color: #58A3F7;
+    height: 105px;
+    margin-right: 1.5%;
+}
+.chartDiv span,.chartDiv p{
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    line-height: 30px;
+}
+.chartDiv span{margin-top:8%;}
+.chartDiv2{
+    background-color: #FEC03D;
+}
+.chartDiv3{
+    background-color: #52C1F5;
+}
+.chartDiv4{
+    background-color: #FB6260;
+}
+/*饼状图*/
+.chartDivBox2{width: 100%;
+    height: 251px;}
+.pieChartLeft{    width: 70%;
+    float: left;}
+.pieChartLeft span{ font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    display: block;
+    line-height: 50px;}
+.pieChartLeft ul{    float: left;
+    width: 100%;
+    height: 50px;}
+.pieChartLeft li{    width: 25%;   float: left;}
+.pieChartright{
+    width: 29%;
+    float: left;
+}
+.pieChartright span{ font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    display: block;
+    line-height: 50px;}
+
+/*折线图*/
+.chartDivBox3 {    margin-top: 2%;}
+.chartDivBox3  span{
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -1,0 +1,204 @@
+.bodyStyle2,.bodyStyle2{
+    height: 100%;
+    background-color: #F0F2F5;
+    width: 100%;
+    overflow: hidden;
+}
+.bodyStyle2 .searchBox,.bodyStyle4 .searchBox {
+    width: 100%;
+    float: left;
+    height: 100%;
+}
+.bodyStyle2 .searchBox .searchTitle,.bodyStyle4, .searchBox .searchTitle {
+    height: 50px;
+    background-color: #fff;
+    line-height: 30px;
+    /*padding-left: 1%;*/
+    margin-bottom: 1.5%;
+}
+.bodyStyle2 .searchBox .searchTitle .searchStyle,.bodyStyle4 .searchBox .searchTitle .searchStyle {
+    color: #0079FE;
+    border: 3px solid #0079FE;
+    margin-right: 10px;
+    float: left;
+    margin-top: 1%;
+    height: 20px;
+}
+.bodyStyle2 .searchBox .searchTitle .searchText,.bodyStyle4 .searchBox .searchTitle .searchText {
+    float: left;
+    line-height: 50px;
+    font-size: 14px;
+}
+
+.bodyStyle2 .searchBox .searchTitle table{
+    width: 100%;
+}
+.bodyStyle2 .searchBox .searchTitle table, th, td{
+    /*border: 1px solid #ccc;*/
+    text-align: center;
+}
+.bodyStyle2 .searchBox .searchTitle table label{
+    margin-right: 2px;
+}
+.bodyStyle2 .searchBox .contentBox{
+    margin:0 1.5% 1.5%;
+}
+.bodyStyle2 .searchBox .icon,.content {
+    overflow:hidden;
+    background-color: #fff;
+    margin-bottom: 1.5%;
+    padding: 1.5% 2% 0 2%;
+}
+.bodyStyle2 .searchBox .icon div{
+    float:left;
+}
+.bodyStyle2 .searchBox .icon .searchBtnBox{
+    float:right;
+    width:33%;
+}
+.bodyStyle2 .searchBox .icon div input {
+    width: 200px;
+}
+.bodyStyle2 .searchBox .icon div a,.bodyStyle4 .searchBox .icon div a{
+    margin-left: 20px;
+    background-color: #0079FE;
+    color: #fff;
+    height: 36px;
+    line-height: 36px;
+    float: right;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.bodyStyle2 .searchBox .icon div a:hover{
+    background-color: #0267d7;
+}
+.bodyStyle2 .searchBox .icon div label,.icon div input{
+    font-size:14px;
+    height:36px;
+    line-height:36px;
+    color: #373737;
+}
+.bodyStyle2 .searchBox .iconType{width:65%;margin-bottom:2%;}
+
+.iconTitle{height: 30px;width: 100%;margin-bottom: 2%;font-size: 16px; border-bottom: 1px solid #ccc;}
+.iconTitle div{height:50px;line-height:50px;text-align: center;font-size: 16px;border:1px solid #ccc;width:13%;}
+.iconType div {float: left;width: 41%;margin-left: 1%;}
+.companyBox{margin-left: 5%;}
+label{text-align:right;}
+.icon div input { width: 65%;float: left;}
+.icon div label{float: left;text-align: center;}
+.icon .searchBtnBox{width:33%;}
+.js_newUsers{
+    margin-right:20px;
+}
+#detailToolbar{
+    margin-bottom:1.5%;
+}
+
+.popBox1{
+    /*display: none;*/
+    position: absolute;
+    border: 1px solid #fff;
+    width: auto;
+    left: 0;
+    height: auto;
+    top: 39%;
+    /*padding: 2%;*/
+    background-color: #fff;
+}
+.popBox1 div p{
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    padding-left: 10px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+.popBox1 div i{
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    cursor: pointer;
+}
+.popBox1 .settingBox{width:100%; height:auto;}
+.popBox1 .settingBox .settingStyle{
+   /* display: inline-block;*/
+    float: left;
+    width: 100%;
+    /*text-align: center;*/
+    padding: 1% 0;
+}
+.popBox1 .settingBox .settingStyle span{
+    color: red;
+}
+.popBox1 .settingBox .settingStyle label{
+    font-size: 16px;
+    margin-right:5px;
+}
+.popBox1 .settingBox .radioDiv{
+    text-align:left;
+    display:inline-block;
+    width:50%;
+}
+.popBox1 .settingBox .settingStyle input[type="text"],.popBox1 .settingBox .settingStyle input[type="password"],.popBox1 .settingBox .settingStyle select{
+    width: 50%;
+    height: 30px;
+    line-height: 30px;
+    padding: 1%;
+    border: 1px solid #e0e0e0;
+}
+.popBox1 .settingBox .allElectionBox label{font-size: 16px;}
+.popBox1 .settingBox .btnBox{
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 1%;
+    float: right;
+}
+.popBox1 .settingBox .btnBox a{
+    width: 80px;
+    display: inline-block;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 3px;
+    float: right;
+    margin-left: 10px;
+    color: #fff;
+    background-color: #0361ED;
+}
+.popBox1 .settingBox .roleList{
+    width:100%;
+    height:30px;
+    line-height:30px;
+}
+
+
+.detailBox{
+    background-color:#fff;
+    margin:0 1.5%;
+    padding:1.5%;
+    overflow:hidden;
+}
+.userInfo{
+    width:60%;
+    margin-left:30%;
+
+}
+.userInfo>div{
+    height:30px;
+    margin-bottom:10px;
+}
+/*#popUser{
+    display: none;
+}*/
+#popRole{
+    display: none;
+}
+#popEditRole{
+    display: none;
+}
+

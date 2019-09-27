@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.WidgetKeyMapper">
+
+    <sql id="Base_Column_List">
+      ID, KEY_NAME, KEY_DESCRIBE, KEY_MARK,
+      CREATETIME, REMARK, CHECK_STATUS, LAST_CHECK_TIME,
+      REVIEW_STATUS
+    </sql>
+    <!-- 对应的插入字段的名字 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                ID,
+            </if>
+            <if test="request.keyName!=null and request.keyName!=''">
+                KEY_NAME,
+            </if>
+            <if test="request.keyDescribe!=null and request.keyDescribe!=''">
+                KEY_DESCRIBE,
+            </if>
+            <if test="request.keyMark!=null and request.keyMark!=''">
+                KEY_MARK,
+            </if>
+            <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                REVIEW_STATUS,
+            </if>
+            <if test=" request.createTime!=null">
+                CREATETIME,
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 对应的插入字段的值 -->
+    <sql id="values">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.keyName!=null and request.keyName!=''">
+                #{request.keyName},
+            </if>
+            <if test="request.keyDescribe!=null and request.keyDescribe!=''">
+                #{request.keyDescribe},
+            </if>
+            <if test="request.keyMark!=null and request.keyMark!=''">
+                #{request.keyMark},
+            </if>
+            <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                #{request.reviewStatus},
+            </if>
+
+            <if test=" request.createTime!=null">
+                #{request.createTime},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="widgetKeyInsert">
+        INSERT INTO WIDGET_KEY
+        (
+        <include refid="key"/>
+        )
+        VALUES
+        (<include refid="values"/>)
+    </insert>
+
+
+    <update id="widgetKeyUpdate">
+        UPDATE WIDGET_KEY
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.review!=null and request.review!=''">
+                    REVIEW = #{request.review},
+                </if>
+                <if test="request.checkStatus!=null and request.checkStatus!=''">
+                    CHECK_STATUS= #{request.checkStatus},
+                </if>
+                <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                    REVIEW_STATUS= #{request.reviewStatus},
+                </if>
+            </trim>
+        </set>
+        WHERE ID = #{request.id}
+    </update>
+
+
+    <select id="widgetKeyDetail" resultType="java.util.Map">
+        SELECT
+        ID AS "id", KEY_NAME AS "keyName",
+        KEY_DESCRIBE AS "keyDescribe",
+        REVIEW_STATUS AS "reviewStatus"
+        FROM WIDGET_KEY
+        WHERE ID = #{request.id}
+    </select>
+
+    <sql id="select_param">
+        <if test="request!=null">
+            <if test="request.keyName!=null and request.keyName!=''">
+                AND KEY_NAME LIKE concat('%',#{request.keyName},'%')
+            </if>
+        </if>
+        AND CHECK_STATUS = 0
+    </sql>
+
+    <select id="widgetKeyList" resultType="java.util.Map">
+        SELECT
+        ID AS "id", KEY_NAME AS "keyName", KEY_DESCRIBE AS "keyDescribe",
+        REVIEW_STATUS AS "reviewStatus",REVIEW AS "review",
+        DATE_FORMAT(CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime"
+        FROM WIDGET_KEY
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY CREATETIME DESC
+        LIMIT #{request.startNum},#{request.size}
+    </select>
+
+    <select id="widgetKeyListCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM WIDGET_KEY
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+
+    <select id="widgetKeyListForWidgetUpgrade" resultType="java.util.Map">
+       SELECT KEY_NAME AS "keyName", KEY_MARK AS "keyMark"
+       FROM WIDGET_KEY
+       WHERE REVIEW_STATUS = 2
+       AND CHECK_STATUS = 0
+    </select>
+
+</mapper>

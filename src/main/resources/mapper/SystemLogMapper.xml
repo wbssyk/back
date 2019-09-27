@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.SystemLogMapper">
+    <sql id="Base_Column_List">
+      ID, IP_ADDRESS,LOGIN_USER,LOG_VALUE,OPERATE_TYPE,CLASS_NAME,METHOD_NAME
+      CREATETIME, CHECK_STATUS, REMARK ,LAST_CHECK_TIME
+    </sql>
+
+
+    <insert id="insertLog" parameterType="com.demo.back.entity.SystemLog">
+        INSERT INTO SYSTEM_LOG
+        (ID, IP_ADDRESS,LOGIN_USER,LOG_VALUE,OPERATE_TYPE,CLASS_NAME,METHOD_NAME
+         ,CHECK_STATUS,CREATETIME)
+        VALUES
+        (#{request.id},#{request.ipAddress},#{request.loginUser},#{request.logValue}
+        ,#{request.operateType},#{request.className},#{request.methodName},0,#{request.createTime}
+        )
+    </insert>
+
+    <!-- sl.LOGIN_USER LIKE CONCAT('%',#{request.loginUser},'%')-->
+    <sql id="select_param">
+        <if test="request.loginUser!=null and request.loginUser!='' ">
+           AND sl.LOGIN_USER LIKE concat('%',#{request.loginUser},'%')
+        </if>
+    </sql>
+
+    <select id="systemLogList" parameterType="com.demo.back.controller.log.systemlog.request.LogRequest"
+            resultType="java.util.Map">
+        SELECT
+        sl.IP_ADDRESS AS "ipAddress",sl.LOGIN_USER AS "loginUser",
+        sl.LOG_VALUE AS "logValue",sl.OPERATE_TYPE AS "operateType",
+        DATE_FORMAT(sl.CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime"
+        FROM SYSTEM_LOG sl
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY sl.CREATETIME DESC
+        LIMIT #{request.startNum} ,#{request.size}
+    </select>
+
+    <select id="systemLogListCount" parameterType="com.demo.back.controller.log.systemlog.request.LogRequest"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM  SYSTEM_LOG sl
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+</mapper>

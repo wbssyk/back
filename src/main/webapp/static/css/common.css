@@ -1,0 +1,387 @@
+
+
+.headerBox{
+    width: 100%;
+    float: right;
+}
+.headerBox img{
+    height: 50px;
+    width: 14%;
+    float: left;
+}
+.headerBox .plateName{
+    line-height:50px;
+    color: #fff;
+    font-size: 18px;
+    display: inline-block;
+    background-image: url(../../static/images/title.png);
+    width: 100%;
+    /* width: 86%;*/
+    padding-left: 1%;
+    background-size: cover;
+}
+.headerBox div.userBox{
+    position: absolute;
+    top: 0;
+    right: 30px;
+    height: 50px;
+    line-height: 50px;
+    width: 260px;
+}
+.headerBox div.userBox i{
+    background: url(../../static/images/user.png)no-repeat;
+    width: 30px;
+    height: 30px;
+    margin-top: 5%;
+    display: inline-block;
+    float: right;
+}
+.headerBox .userBox #dropdownUser{
+    margin-right: 20px;
+    margin-top: 6%;
+    font-size: 18px;
+    line-height: 18px;
+    float: right;
+    color: #fff;
+    position: relative;
+}
+.userBox span {
+    float: right;
+    color: #fff;
+    cursor: default;
+}
+/*******************************   aside css  *************************************/
+.amazonmenu{
+   /* float:left;
+    width: 15%;
+    text-align: center;
+    overflow: hidden;*/
+    height: 100%;
+    background-color: #fff;
+}
+.amazonmenu img{
+    height: 80px;
+    width: 100%;
+}
+
+/*第一层*/
+/*.firstA{*/
+    /*display:block;*/
+    /*!*    height: 45px;*!*/
+    /*line-height: 45px;*/
+    /*color: #333;*/
+    /*font-size: 16px;*/
+    /*position: relative;*/
+    /*transition:all .5s ease 0s;*/
+/*}*/
+/*.firstA:hover{ text-decoration: none;background-color:#005AEF; color: #fff;  }*/
+/*.firstA.current{ background: #005AEF;color: #fff; }*/
+/*============修饰图标*/
+/*.ico{ width: 20px; height: 20px; display:block;   position: absolute; left: 20px; top: 15px; background-repeat: no-repeat; }*/
+/*.ico1{ background-image: url(../images/01_hover.jpg)}
+.ico2{ background-image: url(../images/02_hover.jpg)}
+.ico3{ background-image: url(../images/03_hover.jpg)}
+.ico4{ background-image: url(../images/04_hover.jpg)}
+.ico5{ background-image: url(../images/05_hover.jpg)}*/
+/*============小箭头*/
+.iStyle{
+    /*width: 20px; height: 10px; background-image:url(../../static/images/arrow.png); background-repeat: no-repeat;
+    display: block; position: absolute; right: 20px; top: 20px; */
+    position: absolute;
+    right: 20px;
+    color: #000;
+    font-size: 26px;
+    height: 43px;
+    line-height: 47px;font-style: normal;
+
+}
+.activeA{
+    color:#fff;
+}
+.firstLevel:hover{color: #fff;text-decoration: none;}
+/*.level1 i.down{ background-position: 0 -10px;
+    color: #fff; }*/
+
+/*第二层*/
+.menu li ul{ overflow: hidden; }
+.menu li ul.level2{ display: none; }/*background: #005AEF; */
+.menu li ul.level2 li a{
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    font-size: 14px;
+    transition:all 1s ease 0s;
+    background-color: #fff;
+    color: #000;
+}
+.menu li ul.level2 li .currentEj{
+    color: #0079FE;
+    font-weight: bold;}
+
+
+/* scroll-bar_公用滚动条CSS3样式
+-----------------------------*/
+/*谷歌浏览器*/
+.by_edit::-webkit-scrollbar{
+    /*滚动条整体部分，其中的属性有width,height,background,border（就和一个块级元素一样）等。*/
+    width: 5px;
+    height: 5px;
+}
+.by_edit::-webkit-scrollbar-track{
+    /*外层轨道。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
+    background: rgba(0,0,0,0);
+}
+.by_edit::-webkit-scrollbar-track:hover{
+    background: rgba(0,0,0,0.2);
+}
+.by_edit::-webkit-scrollbar-button{
+    /*滚动条两端的按钮。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
+    display:none;
+}
+.by_edit::-webkit-scrollbar-thumb{
+    /*滚动条里面可以拖动的那部分*/
+    background: rgba(0,0,0,0.3);
+}
+.by_edit::-webkit-scrollbar-corner{
+    /*边角*/
+    background: rgba(0,0,0,0.1);
+}
+.by_edit{
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+/*.by_edit::-webkit-scrollbar-track-piece{*/
+/*!*内层轨道，滚动条中间部分（除去）。*!*/
+/*}*/
+/*.by_edit::-webkit-resizer{*/
+/*!*定义右下角拖动块的样式*!*/
+/*}*/
+
+/*火狐浏览器*/
+
+/*---- END -----*/
+
+/*******************************   登 录 页  ****************************************/
+.loginBgImg{
+    width: 100%;
+    display: block;
+    height: 100%;
+}
+.boxShadow{
+    position: absolute;
+    top: 13%;
+    border: 5px solid #BFE4FF;
+    height: 78%;
+    width: 33%;
+    left: 60%;
+    border-radius: 12px;
+}
+.loginBox{
+    border-radius: 7px;
+    background-color: #fff;
+    height: 100%;
+}
+.loginBox img{
+    width: 44%;
+    margin: 8% 21% 4% 28%;
+}
+.loginText{
+    color: #2C7BFC;
+    font-weight: bold;
+    font-size: 25px;
+    display: block;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+}
+.loginBtn{
+    width: 76%;
+    margin-left: 10%;
+    height: 50px;
+    display: inline-block;
+    margin-top: 9%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    line-height: 48px;
+    font-weight: 600;
+    color: #fff;
+    background: #3280FC;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.loginBox input{
+    width: 76%;
+    margin-left: 10%;
+    height: 50px;
+    padding: 0 2%;
+    font-size: 16px;
+    font-weight: 600;
+    color: #A9A9A9;
+    margin-top: 5%;
+}
+
+*{ margin: 0; padding: 0; }
+img{border:0;}
+ul,li{list-style-type:none;}
+a {color:#00007F;text-decoration:none;}
+a:hover {color:#bd0a01;text-decoration:none;}
+.treebox{ margin: 0 auto;}/* background-color:#1a6cb9; */
+.menu{ overflow: hidden; }
+/*第一层*/
+.menu li.level1>a{
+    text-align: center;
+    display:block;
+    height: 45px;
+    line-height: 45px;
+    color: #000;
+    font-size: 16px;
+    position: relative;
+    transition:all .5s ease 0s;
+}
+.menu li.level1 .firstLevel:hover{ text-decoration: none;background-color:#005AEF; color:#fff;  }
+.menu li.level1 .firstLevel.current{ background: #0079FE; color:#fff;}
+.firstLevel:hover i{color:#fff;}
+/*============修饰图标*/
+.ico{ width: 20px; height: 20px; display:block;   position: absolute; left: 20px; top: 15px; background-repeat: no-repeat; }
+/*.icon1{ background-image: url(../../static/images/xitong1.png)}
+.icon2{ background-image: url(../../static/images/kehuduan1.png)}
+.icon3{ background-image: url(../../static/images/rizhi1.png)}
+.icon4{ background-image: url(../../static/images/kongjian1.png)}
+.icon6{ background-image: url(../../static/images/05_hover.jpg)}
+.icon7{ background-image: url(../../static/images/kongjian2.png)}
+.icon8{ background-image: url(../../static/images/xitong2.png)}
+.icon9{ background-image: url(../../static/images/kehuduan2.png)}*/
+/*============小箭头*/
+/*
+.level1 i{ width: 20px; height: 10px; background-image:url("../images/arrow.png"); background-repeat: no-repeat; display: block; position: absolute; right: 20px; top: 20px; }
+.level1 i.down{ background-position: 0 -10px; }
+
+.ico1{ background-position: 0 0; }
+.ico2{ background-position: 0 -20px; }
+.ico3{ background-position: 0 -40px; }
+.ico4{ background-position: 0 -60px; }
+.ico5{ background-position: 0 -80px; }
+*/
+
+/*第二层*/
+.menu li ul{ overflow: hidden; }
+.menu li ul.level2{ display: none; }
+.menu li ul.level2 li a{
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    color: #000;
+    /*border-bottom: 1px solid #ddd; */
+    font-size: 14px;
+    transition:all 1s ease 0s;
+    background-color: #fff;
+    text-align: center;
+}
+
+
+.box{
+    height: 40px;
+    line-height: 25px;
+}
+.box input {
+    margin-left: 15px;
+}
+.btns {
+    text-align: right;
+}
+.btns button{
+    margin-right: 15px;
+}
+
+/*用户管理编辑，删除，详情样式*/
+.editUser {
+	margin-right:20px;
+	color:#FF9800;
+    cursor: pointer;
+}
+.editUser:hover{
+	color:#FFC107;
+}
+.delOpt {
+    margin-right:20px;
+    color:#FF0000;
+    cursor: pointer;
+}
+.delOpt:hover{
+    color:#d43f3a;
+}
+.js_details {
+    margin-right:20px;
+    color:#5e5e5e;
+    cursor: pointer;
+}
+.js_details:hover{
+    color:#000;
+}
+
+
+.editUser{
+
+}
+.contentBox{
+    margin:0 1.5% 1.5%;
+}
+.icon,.content {
+	overflow:hidden;
+    background-color: #fff;
+    margin-bottom: 1.5%;
+    padding: 1.5% 2% 0 2%;
+}
+.icon div{
+    float:left;
+}
+.icon .searchBtnBox{
+    float:right;
+}
+.icon div input {
+    width: 200px;
+}
+.icon div a{
+    margin-left: 20px;
+    background-color: #0079FE;
+    color: #fff;
+    height: 36px;
+    line-height: 36px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.icon div a:hover{
+    background-color: #0267d7;
+}
+.icon div label,.icon div input{
+    font-size:14px;
+    height:36px;
+    line-height:36px;
+    color: #373737;
+}
+.iconType{width:65%;margin-bottom:2%;}
+#detailToolbar a{
+    color: #000;
+    height: 36px;
+    line-height: 36px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    float: right;
+    border: 1px solid #ccc;
+}
+#detailToolbar a:hover,.btnBox span:hover{
+    color:#60A9F1;
+    border:1px solid #60A9F1;
+}
+label.error{
+    color:red;
+    font-size: 12px!important;
+    font-weight: 500!important;
+}

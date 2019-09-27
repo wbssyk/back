@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.HomePageNoticeMapper">
+
+  <sql id="Base_Column_List" >
+      ID, NOTICE_NAME, NOTICE_DESCRIBE,REVIEW
+      URL, CREATETIME, REMARK,REVIEW_STATUS
+      CHECK_STATUS, LAST_CHECK_TIME, CLICK_NUMBER
+    </sql>
+
+    <sql id="param">
+        <trim suffixOverrides=",">
+            <if test="request.noticeName!=null and request.noticeName!=''">
+                NOTICE_NAME,
+            </if>
+            <if test="request.noticeDescribe!=null and request.noticeDescribe!=''">
+                NOTICE_DESCRIBE,
+            </if>
+            <if test="request.id!=null and request.id!=''">
+                ID,
+            </if>
+            <if test="request.reviewStatus!=null and request.reviewStatus!=''">
+                REVIEW_STATUS,
+            </if>
+            <if test=" request.createTime!=null">
+                CREATETIME,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="param_result">
+        <trim suffixOverrides=",">
+            <if test="request.noticeName!=null and request.noticeName!=''">
+                #{request.noticeName},
+            </if>
+            <if test="request.noticeDescribe!=null and request.noticeDescribe!=''">
+                #{request.noticeDescribe},
+            </if>
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.reviewStatus!=null and request.reviewStatus!=''">
+                #{request.reviewStatus},
+            </if>
+            <if test=" request.createTime!=null">
+                #{request.createTime},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="noticeInsert" parameterType="com.demo.back.entity.HomePageNotice">
+        INSERT INTO HOME_PAGE_NOTICE
+        (<include refid="param"/> )
+        VALUES
+        (<include refid="param_result"/>)
+    </insert>
+
+    <update id="noticeUpdate" parameterType="com.demo.back.entity.HomePageNotice">
+        UPDATE HOME_PAGE_NOTICE
+        <set>
+            <trim suffixOverrides=",">
+                <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                    REVIEW_STATUS=#{request.reviewStatus},
+                </if>
+                <if test=" request.review!=null and  request.review!=''">
+                    REVIEW=#{request.review},
+                </if>
+                <if test=" request.checkStatus!=null">
+                    CHECK_STATUS=#{request.checkStatus},
+                </if>
+
+            </trim>
+        </set>
+        WHERE  ID = #{request.id}
+    </update>
+
+    <sql id="select_param">
+        <if test="request!=null">
+            <if test="request.noticeName!=null and request.noticeName!=''">
+                AND NOTICE_NAME LIKE concat('%',#{request.noticeName},'%')
+            </if>
+        </if>
+        AND CHECK_STATUS BETWEEN 0 AND 1
+    </sql>
+
+    <select id="noticeList"
+            parameterType="com.demo.back.controller.business.homepagenotice.request.HomePageNoticeRequest"
+            resultType="java.util.Map">
+        SELECT
+        ID AS "id", NOTICE_NAME AS "noticeName",NOTICE_DESCRIBE AS "noticeDescribe",
+        CHECK_STATUS AS "checkStatus",REVIEW_STATUS AS "reviewStatus",REVIEW AS "review",
+        DATE_FORMAT(CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime"
+        FROM HOME_PAGE_NOTICE
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY CREATETIME DESC
+        LIMIT #{request.startNum} ,#{request.size}
+    </select>
+
+    <select id="noticeListCount"
+            parameterType="com.demo.back.controller.business.homepagenotice.request.HomePageNoticeRequest"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM HOME_PAGE_NOTICE
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+
+
+    <select id="selectById" resultType="java.util.Map">
+        SELECT  ID AS "id", NOTICE_NAME AS "noticeName",
+        NOTICE_DESCRIBE AS "noticeDescribe",CREATETIME AS "createTime"
+        FROM  HOME_PAGE_NOTICE
+        WHERE ID = #{request.id}
+    </select>
+
+    <select id="selectList" resultType="java.util.Map">
+        SELECT
+        ID AS "id", NOTICE_NAME AS "noticeName",NOTICE_DESCRIBE AS "noticeDescribe"
+        FROM HOME_PAGE_NOTICE
+        WHERE REVIEW_STATUS = 2
+        AND CHECK_STATUS = 0
+    </select>
+</mapper>

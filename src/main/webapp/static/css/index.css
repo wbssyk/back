@@ -1,0 +1,94 @@
+
+@charset "utf-8";
+/* CSS Document 通用样式 */
+/*全局控制*/
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    height: 100%;
+    font-size:14px;
+    /*position: relative;*/
+    font-family:"Microsoft YaHei","SimSun","Arial";
+}
+/*清除浏览器默认样式*/
+p,h1,h2,h3,h4,h5,h6,span,ul,li,dl,dt,dd,ol,li,input,img,a,span,iframe{
+    padding:0;
+    margin:0;
+    list-style:none;
+    border:0;
+    outline:none;
+}/* outline:none;轮廓*/
+i,b{
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight:normal;
+    padding:0;
+    margin:0;
+}
+/*文字字体为微软雅黑，如果用户电脑里面没有这个字体，就使用Arial作为字体，以此类推。这种写法主要是避免因为用户电脑里面没有某种字体而导致的显示不美观的情况
+ 字号由于谷歌浏览器自制限制-最小字号为12px，其他浏览器正常。
+ 如非要小字号者可使用CSS3强制压缩字号（-webkit-transform:scale(0.75);），但这样会使设置这属性的容器也缩小:不推荐使用！
+ font-weight:normal; 字体的粗细*/
+a{
+    text-decoration:none;
+}
+/*去掉超链接下划线*/
+a:hover{
+    text-decoration:none;
+}
+img{
+    border:0;
+}
+.fl{
+    float:left;
+}/*左悬浮*/
+.fr{
+    float:right;
+}/*右悬浮*/
+.clear{
+    clear: both;
+}/*清除浮动*/
+/*vertical-align: middle; 垂直居中代码
+ text-overflow:ellipsis; white-space:nowrap; overflow:hidden;  溢出出现省略号
+*/
+
+/* index_整体框架
+-----------------------------*/
+
+#contentDiv{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    overflow: hidden;
+}
+#contentDiv #bodyTop{
+    height:6%;
+    /*background: turquoise;*/
+}
+#contentDiv #bodyCont{
+    height: 94%;
+    margin-top: -1px;
+}
+#contentDiv #bodyCont .treeLeft{
+    width: 14%;
+    float:left;
+    height: 100%;
+    /*background: aquamarine;*/
+}
+#contentDiv #bodyCont .contRight{
+    width: auto;
+    height: 100%;
+    /*background: seagreen;*/
+}
+#contentDiv #bodyCont .contRight .contRights{
+    height:100%;
+   /* background: ivory;*/
+}
+.box input{
+    border: 1px solid #e0e0e0;
+    padding: 0 5px;
+}
+

@@ -1,0 +1,167 @@
+
+.js_newUsers{
+    margin-right:20px;
+}
+#detailToolbar{
+    margin-bottom:1.5%;
+}
+
+/*权限设置弹框样式*/
+.settingBodys{
+    /*display: none;*/
+    position: absolute;
+    border: 1px solid #fff;
+    left: 0;
+    height: 460px;
+    width: 630px;
+    top: 39%;
+    background-color: #fff;
+}
+.settingBodys div p{
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    padding-left: 10px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+.settingBodys div i{
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    cursor: pointer;
+}
+
+.settingBodys .settingBox{width:100%; height:100%;}
+.settingBodys .settingBox .settingStyle{
+    background-color: #fff;
+    margin-bottom: 1.5%;
+    padding: 1.5% 2% 0 2%;
+    height: 81%;
+    overflow: auto;
+}
+.settingBodys .settingBox .settingStyle .partyOrganBox .partyOrganTitle{
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+    margin-bottom: 1%;
+    display: inline-block;
+    font-weight: bold;
+}
+.settingBodys .settingBox .settingStyle .partyOrganBox div .electionBox{
+    float: left;
+    width: 100%;
+}
+.settingBodys .settingBox .settingStyle .partyOrganBox div .electionBox .election{
+    width: 100%;
+    display: inline-flex;
+}
+.settingBodys .settingBox .settingStyle .partyOrganBox div .electionBox .election li{
+    white-space: nowrap;
+}
+.settingBodys .settingBox .settingStyle .partyOrganBox div .electionBox .election label{
+    display: inline;
+    margin-right: 10px;
+}
+.settingBodys .settingBox .settingStyle input{
+    border: 1px solid #e0e0e0;
+    margin-left: 10px;
+    height: 30px;
+    width: 50%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/*checkbox样式*/
+.select-tag-input + label{
+    background-color: #eaeaea;
+    /*border: 1px solid #C1CACA;*/
+    border: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 9px;
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+    margin-right: 18px;
+    margin-top: 9px;
+}
+
+
+.select-tag-input + label:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+
+.select-tag-input:checked + label {
+    background-color: #eaeaea;
+    /*border: 1px solid #92A1AC;*/
+    border: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+    color: #243441;
+}
+
+
+.select-tag-input:checked + label:after {
+    content: '\2714';
+    position: absolute;
+    top: -11px;
+    left: 0px;
+    color: #758794;
+    width: 100%;
+    text-align: center;
+    font-size: 1.4em;
+    padding: 1px 0 0 0;
+    vertical-align: text-top;
+}
+
+.settingBodys .settingBox .btnBox{
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 1%;
+    float: right;
+}
+.settingBodys .settingBox .btnBox a{
+    width: 80px;
+    display: inline-block;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 3px;
+    float: right;
+    margin-left: 10px;
+    color: #fff;
+    background-color: #0361ED;
+}
+.settingBodys .settingBox .roleList{
+    width:100%;
+    height:30px;
+    line-height:30px;
+}
+
+
+.detailBox{
+    background-color:#fff;
+    margin:0 1.5%;
+    padding:1.5%;
+    overflow:hidden;
+}
+.userInfo{
+    width:60%;
+    margin-left:30%;
+
+}
+.userInfo>div{
+    height:30px;
+    margin-bottom:10px;
+}
+/*#popUser{
+    display: none;
+}*/
+#popRole{
+    display: none;
+}
+#popEditRole{
+    display: none;
+}

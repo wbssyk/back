@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.AuthRoleMapper">
+
+    <sql id="Base_Column_List">
+      ID, ROLENAME,ROLEDESCRIPTION,CREATETIME, CHECK_STATUS, REMARK ,LAST_CHECK_TIME,ROLE_TYPE
+    </sql>
+
+
+    <!-- 对应的插入字段的名字 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                ID,
+            </if>
+            <if test="request.roleName!=null and request.roleName!=''">
+                ROLENAME,
+            </if>
+            <if test="request.roleDescription!=null and request.roleDescription!=''">
+                ROLEDESCRIPTION,
+            </if>
+            <if test="request.remark!=null and request.remark!=''">
+                REMARK,
+            </if>
+            <if test=" request.createTime!=null">
+                CREATETIME,
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 对应的插入字段的值 -->
+    <sql id="values">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.roleName!=null and request.roleName!=''">
+                #{request.roleName},
+            </if>
+            <if test="request.roleDescription!=null and request.roleDescription!=''">
+                #{request.roleDescription},
+            </if>
+            <if test="request.remark!=null and request.remark!=''">
+                #{request.remark},
+            </if>
+            <if test=" request.createTime!=null">
+                #{request.createTime},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="roleInsert" parameterType="com.demo.back.entity.AuthRole">
+        INSERT INTO AUTH_ROLE
+        (<include refid="key"/>)
+        VALUES
+        (<include refid="values"/>)
+    </insert>
+
+    <update id="roleUpdate" parameterType="java.lang.String">
+        UPDATE AUTH_ROLE
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.id!=null and request.id!=''">
+                    ID = #{request.id},
+                </if>
+                <if test="request.roleName!=null and request.roleName!=''">
+                    ROLENAME = #{request.username},
+                </if>
+                <if test="request.roleDescription!=null and request.roleDescription!=''">
+                    ROLEDESCRIPTION=#{request.roleDescription},
+                </if>
+                <if test="request.remark!=null and request.remark!=''">
+                    REMARK = #{request.remark},
+                </if>
+                <if test=" request.lastCheckTime!=null and  request.lastCheckTime!=''">
+                    LAST_CHECK_TIME= #{request.lastCheckTime},
+                </if>
+            </trim>
+        </set>
+        WHERE ID = #{request.id}
+    </update>
+
+    <update id="roleDelete" parameterType="com.demo.back.controller.system.authrolecontroller.request.AuthRoleRequest">
+        UPDATE AUTH_ROLE
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.checkStatus!=null">
+                    CHECK_STATUS = #{request.checkStatus}
+                </if>
+            </trim>
+        </set>
+        WHERE ID = #{request.roleId}
+    </update>
+
+
+    <sql id="select_param">
+        <if test="request!=null">
+
+            <if test="request.roleName!=null and request.roleName!=''">
+                AND ar.ROLENAME LIKE concat('%',#{request.roleName},'%')
+            </if>
+        </if>
+        AND ar.CHECK_STATUS !=2
+    </sql>
+
+    <select id="roleDataList" parameterType="com.demo.back.controller.system.authrolecontroller.request.AuthRoleRequest"
+            resultType="java.util.Map">
+        SELECT
+        ar.ROLENAME AS "roleName", ar.ROLEDESCRIPTION AS "roleDescription",
+        DATE_FORMAT(ar.CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime",
+        ar.CHECK_STATUS AS "checkStatus",
+        ar.ID AS "roleId"
+        FROM AUTH_ROLE ar
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY ar.CREATETIME DESC
+        LIMIT #{request.startNum},#{request.size}
+    </select>
+
+    <select id="roleDataListCount"
+            parameterType="com.demo.back.controller.system.authrolecontroller.request.AuthRoleRequest"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM AUTH_ROLE ar
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+
+
+    <delete id="roleDeleteByUserIdAndRoleId" parameterType="java.lang.String">
+        DELETE FROM AUTH_USER_ROLE aur
+        WHERE aur.USERID = #{userid}
+        AND aur.ROLEID = #{roelid}
+    </delete>
+
+    <select id="selectRoleListForUser" parameterType="com.demo.back.controller.system.authrolecontroller.request.AuthRoleRequest"
+            resultType="java.util.Map">
+        SELECT DISTINCT ROLENAME AS "roleName",ID AS "roleId"
+        FROM AUTH_ROLE
+        WHERE CHECK_STATUS = 0
+    </select>
+
+    <select id="selectByRoleName" parameterType="com.demo.back.entity.AuthRole"
+            resultType="com.demo.back.entity.AuthRole">
+        SELECT DISTINCT ROLENAME AS "roleName",ID AS "roleId"
+        FROM AUTH_ROLE
+        WHERE ROLENAME = #{request.roleName}
+        AND CHECK_STATUS =0
+    </select>
+
+    <select id="selectByRoelId" parameterType="java.lang.String"
+            resultType="com.demo.back.entity.AuthRole">
+        SELECT DISTINCT ROLENAME AS "roleName",ID AS "roleId",ROLE_TYPE AS "roleType"
+        FROM AUTH_ROLE
+        WHERE ID = #{roleId}
+        AND CHECK_STATUS != 2
+    </select>
+
+
+
+</mapper>

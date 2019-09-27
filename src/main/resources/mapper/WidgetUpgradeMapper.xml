@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.back.dao.WidgetUpgradeMapper">
+
+    <sql id="Base_Column_List">
+      ID, WIDGET_NAME, WIDGET_DESCRIBE, URL, VERSION, CREATETIME, REMARK, CHECK_STATUS, LAST_CHECK_TIME, 
+      APP_TYPE, REVIEW_STATUS,REVIEW,CONSTRAINT_STATUS,KEY_APP_NAME
+    </sql>
+
+
+    <!-- 对应的插入字段的名字 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                ID,
+            </if>
+            <if test="request.widgetName!=null and request.widgetName!=''">
+                WIDGET_NAME,
+            </if>
+            <if test="request.widgetDescribe!=null and request.widgetDescribe!=''">
+                WIDGET_DESCRIBE,
+            </if>
+            <if test="request.url!=null and request.url!=''">
+                URL,
+            </if>
+            <if test=" request.version!=null and  request.version!=''">
+                VERSION,
+            </if>
+            <if test=" request.appType!=null and  request.appType!=''">
+                APP_TYPE,
+            </if>
+            <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                REVIEW_STATUS,
+            </if>
+            <if test=" request.remark!=null and  request.remark!=''">
+                REMARK,
+            </if>
+            <if test=" request.constraintStatus!=null and  request.constraintStatus!=''">
+                CONSTRAINT_STATUS,
+            </if>
+            <if test=" request.createTime!=null ">
+                CREATETIME,
+            </if>
+            <if test=" request.md5!=null and request.md5!='' ">
+                MD5,
+            </if>
+            <if test=" request.keyAppName!=null and request.keyAppName!='' ">
+                KEY_APP_NAME,
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 对应的插入字段的值 -->
+    <sql id="values">
+        <trim suffixOverrides=",">
+            <if test="request.id!=null and request.id!=''">
+                #{request.id},
+            </if>
+            <if test="request.widgetName!=null and request.widgetName!=''">
+                #{request.widgetName},
+            </if>
+            <if test="request.widgetDescribe!=null and request.widgetDescribe!=''">
+                #{request.widgetDescribe},
+            </if>
+            <if test="request.url!=null and request.url!=''">
+                #{request.url},
+            </if>
+            <if test=" request.version!=null and  request.version!=''">
+                #{request.version},
+            </if>
+            <if test=" request.appType!=null and  request.appType!=''">
+                #{request.appType},
+            </if>
+            <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                #{request.reviewStatus},
+            </if>
+            <if test=" request.remark!=null and  request.remark!=''">
+                #{request.remark},
+            </if>
+            <if test=" request.constraintStatus!=null and  request.constraintStatus!=''">
+                #{request.constraintStatus},
+            </if>
+            <if test=" request.createTime!=null ">
+                #{request.createTime},
+            </if>
+            <if test=" request.md5!=null and request.md5!='' ">
+                #{request.md5},
+            </if>
+            <if test=" request.keyAppName!=null and request.keyAppName!='' ">
+                #{request.keyAppName},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="com.demo.back.entity.WidgetUpgrade">
+        INSERT INTO WIDGET_UPGRADE
+        (
+        <include refid="key"/>
+        )
+        VALUES
+        (<include refid="values"/>)
+    </insert>
+
+
+    <update id="widgetUpdate">
+        UPDATE WIDGET_UPGRADE
+        <set>
+            <trim suffixOverrides=",">
+                <if test="request.widgetName!=null and request.widgetName!=''">
+                    WIDGET_NAME=#{request.widgetName},
+                </if>
+                <if test="request.widgetDescribe!=null and request.widgetDescribe!=''">
+                    WIDGET_DESCRIBE=#{request.widgetDescribe},
+                </if>
+                <if test="request.url!=null and request.url!=''">
+                    URL=#{request.url},
+                </if>
+                <if test=" request.version!=null and  request.version!=''">
+                    VERSION=#{request.version},
+                </if>
+                <if test=" request.appType!=null and  request.appType!=''">
+                    APP_TYPE=#{request.appType},
+                </if>
+                <if test=" request.reviewStatus!=null and  request.reviewStatus!=''">
+                    REVIEW_STATUS=#{request.reviewStatus},
+                </if>
+                <if test=" request.review!=null and  request.review!=''">
+                    REVIEW=#{request.review},
+                </if>
+                <if test=" request.checkStatus!=null">
+                    CHECK_STATUS=#{request.checkStatus},
+                </if>
+                <if test=" request.remark!=null and  request.remark!=''">
+	                REMARK=#{request.remark},
+	            </if>
+	            <if test=" request.keyAppName!=null and request.keyAppName!='' ">
+	                KEY_APP_NAME=#{request.keyAppName},
+	            </if>
+
+            </trim>
+        </set>
+        WHERE  ID = #{request.id}
+    </update>
+
+
+    <sql id="select_param">
+        <if test="request!=null">
+            <if test="request.widgetName!=null and request.widgetName!=''">
+                AND WIDGET_NAME LIKE concat('%',#{request.widgetName},'%')
+            </if>
+        </if>
+        AND CHECK_STATUS = 0
+    </sql>
+
+    <select id="widgetList" resultType="java.util.Map">
+        SELECT
+        ID AS "id", WIDGET_NAME AS "widgetName", WIDGET_DESCRIBE AS "widgetDescribe",
+        URL AS "url", VERSION AS "version",CHECK_STATUS AS "checkStatus",
+        APP_TYPE AS "appType",REVIEW_STATUS AS "reviewStatus",REVIEW AS "review",
+        CONSTRAINT_STATUS AS "constraintStatus",REMARK AS "remark",KEY_APP_NAME AS "keyAppName",
+        DATE_FORMAT(CREATETIME,'%Y-%m-%d %H:%i:%S') AS "createTime"
+        FROM WIDGET_UPGRADE
+        <where>
+            <include refid="select_param"/>
+        </where>
+        ORDER BY CREATETIME DESC
+        LIMIT #{request.startNum} ,#{request.size}
+    </select>
+
+    <select id="widgetListCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM WIDGET_UPGRADE
+        <where>
+            <include refid="select_param"/>
+        </where>
+    </select>
+    
+    <!-- 根据应用类型判断是否有集合返回    -->
+    <select id="selectWidgetUpgradeByAppType" resultType="com.demo.back.entity.WidgetUpgrade">
+        SELECT
+        ID, WIDGET_NAME AS "widgetName", REMARK AS "remark", KEY_APP_NAME AS "keyAppName",
+        URL, APP_TYPE AS "appType", CONSTRAINT_STATUS AS "constraintStatus" ,REVIEW_STATUS AS "reviewStatus"
+        FROM WIDGET_UPGRADE
+        WHERE CHECK_STATUS = 0
+        <if test=" appType!=null and appType!=''">
+            AND APP_TYPE = #{appType}
+        </if> 
+    </select>
+    
+    <!-- 根据应用类型判断最大返回版本号    -->
+    <select id="selectWidgetUpgradeByMaxVersion" resultType="com.demo.back.entity.WidgetUpgrade">
+        SELECT
+            MAX(CAST(VERSION as int )) AS VERSION
+        FROM WIDGET_UPGRADE
+        WHERE
+            APP_TYPE=#{appType}  
+    </select>
+    
+    <select id="selectById" resultType="com.demo.back.entity.WidgetUpgrade">
+        SELECT
+           ID, WIDGET_NAME AS "widgetName", WIDGET_DESCRIBE AS "widgetDescribe",
+           URL, VERSION, APP_TYPE AS "appType",CONSTRAINT_STATUS AS "constraintStatus",
+           MD5 AS "md5",REMARK AS "remark" ,KEY_APP_NAME AS "keyAppName"
+        FROM WIDGET_UPGRADE
+        WHERE CHECK_STATUS = 0
+        AND ID = #{id}
+    </select>
+    
+    <!-- 根据安装包名称判断是否有集合返回    -->
+    <select id="selectWidgetUpgradeByFilename" resultType="com.demo.back.entity.WidgetUpgrade">
+        SELECT
+            ID, WIDGET_NAME AS "widgetName", KEY_APP_NAME AS "keyAppName",
+            URL, APP_TYPE AS "appType", CONSTRAINT_STATUS AS "constraintStatus"
+        FROM WIDGET_UPGRADE
+        WHERE CHECK_STATUS = 0
+        <if test=" widgetName!=null and widgetName!=''">
+          AND WIDGET_NAME = #{widgetName}
+        </if>
+        <if test=" appType!=null and appType!=''">
+          AND APP_TYPE = #{appType}
+        </if>
+           
+    </select>
+    
+
+</mapper>
